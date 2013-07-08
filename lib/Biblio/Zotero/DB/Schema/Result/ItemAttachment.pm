@@ -190,6 +190,28 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:u4JJM71EtePId8XMpq4WOQ
 
+use URI;
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+sub uri {
+	my ($self) = @_;
+	if(not defined $self->path) {
+		# TODO get URI from ItemDataValue table
+		$self->itemid->item_datas_rs->find(
+			{ 'fieldid.fieldname' => 'url', },
+			{ prefetch => [ 'fieldid', 'valueid' ] }
+		)->valueid->value;
+	}
+	elsif($self->path =~ /^storage:/) {
+		# link to file in storage
+		my $key = $self->itemid->key;
+		my $subdir = $self->result_source->schema->zotero_storage_directory()->subdir($key);
+		URI->new_abs( $self->path =~ s/^storage://r,
+			$subdir->uri . "/" # force to be directory
+		);
+	} else {
+		# link to file
+		URI->new($self->path, 'file'); # NOTE this needs to be check for Zotero on non-Unix systems
+	}
+}
+
 1;

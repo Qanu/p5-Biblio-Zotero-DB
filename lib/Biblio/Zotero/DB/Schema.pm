@@ -15,6 +15,22 @@ __PACKAGE__->load_namespaces;
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UlX+tV+7vyST2GUwO/11dw
 
+use Moose;
+use Path::Class;
+use Path::Class::URI;
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+extends 'DBIx::Class::Schema';
+
+has zotero_storage_directory => ( is => 'rw' );
+
+around connection => sub {
+	my ( $inner, $self, $dsn, $username, $pass, $attr ) = ( shift, @_ );
+
+	$self->zotero_storage_directory(dir(
+		delete $attr->{zotero_storage_directory}
+	)->absolute) if(exists $attr->{zotero_storage_directory});
+
+	$inner->(@_);
+};
+
 1;
