@@ -30,6 +30,8 @@ around connection => sub {
 		delete $attr->{zotero_storage_directory}
 	)->absolute) if(exists $attr->{zotero_storage_directory});
 
+	$attr->{ReadOnly} = 1; # force to be readonly
+
 	$inner->(@_);
 };
 
