@@ -207,6 +207,9 @@ sub uri {
 		my $subdir = $self->result_source->schema->zotero_storage_directory()->subdir($key);
 		URI->new_abs( $self->path =~ s/^storage://r,
 			$subdir->uri . "/" # force to be directory
+			# NOTE: see bug report for Path::Class::URI:
+			# <https://github.com/zmughal/Path-Class-URI/issues/1>,
+			# <https://rt.cpan.org/Ticket/Display.html?id=86818>
 		);
 	} else {
 		# link to file
