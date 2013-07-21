@@ -3,8 +3,7 @@ use warnings;
 use Test::Most tests => 9;
 
 BEGIN { use_ok 'Biblio::Zotero::DB::Schema' }
-use FindBin;
-use lib "$FindBin::Bin/lib";
+use lib "t/lib";
 
 use TestData;
 
