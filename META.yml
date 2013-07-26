@@ -1,0 +1,36 @@
+---
+abstract: 'helper module to access the Zotero SQLite database'
+author:
+  - 'Zakariyya Mughal <zmughal@cpan.org>'
+build_requires:
+  Exporter: 0
+  Test::More: 0
+  Test::Most: 0
+  lib: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Biblio-Zotero-DB
+requires:
+  DBD::SQLite: 1.39
+  DBIx::Class::Core: 0
+  DBIx::Class::ResultSet: 0
+  DBIx::Class::Schema: 0
+  Moo: 0
+  Moose: 0
+  Path::Class: 0
+  Path::Class::URI: 0
+  URI: 0
+  base: 0
+  strict: 0
+  utf8: 0
+  warnings: 0
+resources:
+  homepage: https://github.com/zmughal/p5-Biblio-Zotero-DB
+  repository: https://github.com/zmughal/p5-Biblio-Zotero-DB.git
+version: 0.001
