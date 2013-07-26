@@ -68,7 +68,6 @@ lib/Biblio/Zotero/DB/Schema/Result/Version.pm
 lib/Biblio/Zotero/DB/Schema/Result/ZoteroDummyTable.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/Item.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/ItemData.pm
-pod2htmd.tmp
 t/00_load_zotero_schema.t
 t/01_database_connect.t
 t/02_get_items.t
