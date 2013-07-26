@@ -36,7 +36,9 @@ Biblio::Zotero::DB - helper module to access the Zotero SQLite database
 
 version 0.001
 
-=attribute schema [rw]
+=head1 ATTRIBUTES
+
+=head2 schema [rw]
 
    the DBIx::Class schema
 
