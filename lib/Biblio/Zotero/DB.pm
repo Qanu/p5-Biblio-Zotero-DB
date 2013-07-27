@@ -10,7 +10,6 @@ use warnings;
 use Moo;
 
 
-
 has schema => ( is => 'rw' );
 
 has zotero_db_file => ( is => 'rw' );
@@ -21,6 +20,11 @@ has profile_directory => ( is => 'rw' );
 
 has profile_name => ( is => 'rw' );
 
+
+
+sub find_profile_directories {
+
+}
 
 1;
 
@@ -41,6 +45,25 @@ version 0.001
 =head2 schema [rw]
 
    the DBIx::Class schema
+
+=head2 zotero_db_file
+    TODO
+
+=head2 storage_directory
+    TODO
+
+=head2 profile_directory
+    TODO
+
+=head2 profile_name
+    TODO
+
+=head1 METHODS
+
+=head2 find_profile_directories()
+
+    returns an arrayref of the possible profile diretories that contain a
+    Zotero SQLite database
 
 =head1 AUTHOR
 
