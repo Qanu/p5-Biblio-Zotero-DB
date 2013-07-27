@@ -47,15 +47,19 @@ version 0.001
 the DBIx::Class schema
 
 =head2 zotero_db_file
+
 TODO
 
 =head2 storage_directory
+
 TODO
 
 =head2 profile_directory
+
 TODO
 
 =head2 profile_name
+
 TODO
 
 =head1 METHODS
