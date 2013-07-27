@@ -53,17 +53,17 @@ sub find_profile_directories {
 }
 
 sub _find_profile_directories_osx {
-	my ($self);
+	my ($self) = @_;
 	my $my_data = dir(File::HomeDir->my_data)->absolute;
 	# gives /Users/<username>/Library/Application Support
 	my $find = [
 		dir($my_data, 'Firefox'),
 		dir($my_data, 'Zotero') ];
-	return $self->_find_profile_directories_under(@$find);
+	return $self->_find_profile_directories_under($find);
 }
 
 sub _find_profile_directories_win {
-	my ($self);
+	my ($self) = @_;
 	my $my_data = dir(File::HomeDir->my_data)->absolute;
 	# gives C:\Users\<User Name>\AppData\Local
 	# or C:\Documents and Settings\<User Name>\Local Settings\Application Data
@@ -77,22 +77,22 @@ sub _find_profile_directories_win {
 	my $find = [
 		dir( $my_data, 'Mozilla','Firefox'),
 		dir( $my_data, 'Zotero') ];
-	return $self->_find_profile_directories_under(@$find);
+	return $self->_find_profile_directories_under($find);
 }
 
 sub _find_profile_directories_linux {
-	my ($self);
+	my ($self) = @_;
 	my $find =  [
 		dir(File::HomeDir->my_home , '.mozilla/firefox'),
 		dir(File::HomeDir->my_home , '.zotero/zotero') ];
-	return $self->_find_profile_directories_under(@$find);
-
+	return $self->_find_profile_directories_under($find);
 }
 
 sub _find_profile_directories_under {
 	my ($self, $dirs) = @_;
 	# finds either
 	# dir('Profiles',<randomstring>,'zotero')
+	# (actually, currently it doesn't check for the Profiles directory)
 	# or
 	# dir(<randomstring>, 'zotero')
 	return [ Path::Iterator::Rule->new
