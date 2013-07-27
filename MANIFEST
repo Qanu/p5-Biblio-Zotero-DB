@@ -78,4 +78,4 @@ t/05_search_by_field.t
 t/lib/TestData.pm
 t/test-data/grab-test-data
 t/test-data/zotero-test-data.sqlite
-xt/author/profile_directory.t
+xt/author/00_profile_directory.t

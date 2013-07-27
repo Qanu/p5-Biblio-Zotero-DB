@@ -12,18 +12,56 @@ use Moo;
 use File::HomeDir;
 use Path::Class;
 use Path::Iterator::Rule;
+use Class::Method::Modifiers;
+use List::AllUtils qw(first);
 
+use Biblio::Zotero::DB::Schema;
 
-has schema => ( is => 'rw' );
+has schema => ( is => 'rw', builder => 1, lazy => 1 );
 
-has zotero_db_file => ( is => 'rw' );
+sub _build_schema {
+	my ($self) = @_;
+	Biblio::Zotero::DB::Schema->connect('dbi:SQLite:dbname='.$self->db_file,
+		'', '',
+		{
+			(zotero_storage_directory => $self->storage_directory)x!! $self->storage_directory
+		},
+	);
+}
+# TODO: builder that sets
+#   - the SQLite file name for the connection
+#   - zotero_storage_directory
 
-has storage_directory => ( is => 'rw' );
+has db_file => ( is => 'rw', builder => 1, lazy => 1 );
+
+sub _build_db_file {
+	my ($self) = @_;
+	dir($self->profile_directory)->file('zotero.sqlite');
+}
+
+has storage_directory => ( is => 'rw', builder => 1, lazy => 1 );
+
+sub _build_storage_directory {
+	my ($self) = @_;
+	dir($self->profile_directory)->subdir('storage');
+}
+
 
 has profile_directory => ( is => 'rw' );
 
-has profile_name => ( is => 'rw' );
+has profile_name => ( is => 'rw', trigger => 1, builder => 1, lazy => 1 );
 
+sub _trigger_profile_name {
+	my ($self) = @_;
+	$self->profile_directory(
+		first { dir($_)->components(-2) eq $self->profile_name }
+			@{$self->find_profile_directories});
+}
+
+sub _build_profile_name {
+	my ($self) = @_;
+	dir($self->profile_directory)->components(-2) if $self->profile_directory;
+}
 
 
 # From <http://www.zotero.org/support/zotero_data>
@@ -118,23 +156,28 @@ version 0.001
 
 =head2 schema [rw]
 
-the DBIx::Class schema
+the L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file
 
-=head2 zotero_db_file
+=head2 db_file
 
-TODO
+a string that contains the filename of the C<zotero.sqlite> file
+The default is located in the directory of C<L</profile_directory>> attribute.
 
 =head2 storage_directory
 
-TODO
+a string that contains the directory where the Zotero attachments are located.
+The default is the C<storage> subdirectory of the C<L</profile_directory>> directory.
 
 =head2 profile_directory
 
-TODO
+a string that contains the directory where the C<zotero.sqlite> database is located,
+e.g.  C<~/.zotero/zotero/abc123.default/zotero/>.
 
 =head2 profile_name
 
-TODO
+a string containing the profile name to use, e.g. C<abc123.default>, which
+corresponds to a profile directory such as
+C<~/.zotero/zotero/abc123.default/zotero/>.
 
 =head1 METHODS
 
