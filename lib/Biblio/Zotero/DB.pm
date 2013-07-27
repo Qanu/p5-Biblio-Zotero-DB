@@ -44,26 +44,26 @@ version 0.001
 
 =head2 schema [rw]
 
-   the DBIx::Class schema
+the DBIx::Class schema
 
 =head2 zotero_db_file
-    TODO
+TODO
 
 =head2 storage_directory
-    TODO
+TODO
 
 =head2 profile_directory
-    TODO
+TODO
 
 =head2 profile_name
-    TODO
+TODO
 
 =head1 METHODS
 
 =head2 find_profile_directories()
 
-    returns an arrayref of the possible profile diretories that contain a
-    Zotero SQLite database
+returns an arrayref of the possible profile diretories that contain a
+Zotero SQLite database
 
 =head1 AUTHOR
 
