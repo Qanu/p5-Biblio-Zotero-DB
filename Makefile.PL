@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+use 5.014000;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -24,10 +24,12 @@ my %WriteMakefileArgs = (
     "DBIx::Class::Core" => 0,
     "DBIx::Class::ResultSet" => 0,
     "DBIx::Class::Schema" => 0,
+    "File::HomeDir" => 0,
     "Moo" => 0,
     "Moose" => 0,
     "Path::Class" => 0,
     "Path::Class::URI" => 0,
+    "Path::Iterator::Rule" => 0,
     "URI" => 0,
     "base" => 0,
     "strict" => 0,
