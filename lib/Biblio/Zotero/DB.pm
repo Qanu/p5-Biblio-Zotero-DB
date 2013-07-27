@@ -14,7 +14,7 @@ use List::AllUtils qw(first);
 
 use Biblio::Zotero::DB::Schema;
 
-=attr schema [rw]
+=attr schema
 
 the L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file
 
@@ -30,9 +30,6 @@ sub _build_schema {
 		},
 	);
 }
-# TODO: builder that sets
-#   - the SQLite file name for the connection
-#   - zotero_storage_directory
 
 =attr db_file
 
@@ -73,7 +70,8 @@ has profile_directory => ( is => 'rw' );
 
 a string containing the profile name to use, e.g. C<abc123.default>, which
 corresponds to a profile directory such as
-C<~/.zotero/zotero/abc123.default/zotero/>.
+C<~/.zotero/zotero/abc123.default/zotero/>. Setting this will set the
+C<L</profile_directory>> attribute.
 
 =cut
 has profile_name => ( is => 'rw', trigger => 1, builder => 1, lazy => 1 );
