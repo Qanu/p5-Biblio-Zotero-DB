@@ -69,6 +69,8 @@ TODO
 returns an arrayref of the possible profile diretories that contain a
 Zotero SQLite database
 
+see: L<http://www.zotero.org/support/zotero_data> 
+
 =head1 AUTHOR
 
 Zakariyya Mughal <zmughal@cpan.org>
