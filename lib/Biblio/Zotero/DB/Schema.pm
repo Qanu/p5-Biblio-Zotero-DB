@@ -18,11 +18,12 @@ __PACKAGE__->load_namespaces;
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UlX+tV+7vyST2GUwO/11dw
 
-use Moose;
+use Moo;
 use Path::Class;
 use Path::Class::URI;
 
 extends 'DBIx::Class::Schema';
+
 
 has zotero_storage_directory => ( is => 'rw' );
 
@@ -51,6 +52,22 @@ Biblio::Zotero::DB::Schema
 =head1 VERSION
 
 version 0.001
+
+=head1 SYNOPSIS
+
+  $schema = Biblio::Zotero::DB::Schema->connect(
+    'dbi:SQLite:dbname='.'/path/to/profile/zotero.sqlite',
+    '', '',
+    { zotero_storage_directory => '/path/to/profile/storage' },
+  );
+
+=head1 ATTRIBUTES
+
+=head2 zotero_storage_directory
+
+a string the storage directory for attachments associated with the database.
+This is optional and can be set by using the connection attribute
+C<zotero_storage_directory>.
 
 =head1 AUTHOR
 

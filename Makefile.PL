@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.014000;
+use 5.010000;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -20,7 +20,6 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Biblio::Zotero::DB",
   "PREREQ_PM" => {
-    "Class::Method::Modifiers" => 0,
     "DBD::SQLite" => "1.39",
     "DBIx::Class::Core" => 0,
     "DBIx::Class::ResultSet" => 0,
@@ -28,7 +27,6 @@ my %WriteMakefileArgs = (
     "File::HomeDir" => 0,
     "List::AllUtils" => 0,
     "Moo" => 0,
-    "Moose" => 0,
     "Path::Class" => 0,
     "Path::Class::URI" => 0,
     "Path::Iterator::Rule" => 0,

@@ -17,7 +17,6 @@ meta-spec:
   version: 1.4
 name: Biblio-Zotero-DB
 requires:
-  Class::Method::Modifiers: 0
   DBD::SQLite: 1.39
   DBIx::Class::Core: 0
   DBIx::Class::ResultSet: 0
@@ -25,13 +24,12 @@ requires:
   File::HomeDir: 0
   List::AllUtils: 0
   Moo: 0
-  Moose: 0
   Path::Class: 0
   Path::Class::URI: 0
   Path::Iterator::Rule: 0
   URI: 0
   base: 0
-  perl: v5.14.0
+  perl: v5.10.0
   strict: 0
   utf8: 0
   warnings: 0
