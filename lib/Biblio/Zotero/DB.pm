@@ -4,7 +4,7 @@ package Biblio::Zotero::DB;
 use strict;
 use warnings;
 
-use v5.14;
+use v5.10;
 use Moo;
 use File::HomeDir;
 use Path::Class;
