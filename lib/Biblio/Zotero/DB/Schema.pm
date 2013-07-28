@@ -21,6 +21,23 @@ use Path::Class::URI;
 
 extends 'DBIx::Class::Schema';
 
+=head1 SYNOPSIS
+
+  $schema = Biblio::Zotero::DB::Schema->connect(
+    'dbi:SQLite:dbname='.'/path/to/profile/zotero.sqlite',
+    '', '',
+    { zotero_storage_directory => '/path/to/profile/storage' },
+  );
+
+=cut
+
+=attr zotero_storage_directory
+
+a string the storage directory for attachments associated with the database.
+This is optional and can be set by using the connection attribute
+C<zotero_storage_directory>.
+
+=cut
 has zotero_storage_directory => ( is => 'rw' );
 
 around connection => sub {

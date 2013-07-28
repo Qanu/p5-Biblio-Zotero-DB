@@ -15,7 +15,7 @@ use Biblio::Zotero::DB::Schema;
 
 =attr schema
 
-the L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file
+A L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file.
 
 =cut
 has schema => ( is => 'rw', builder => 1, lazy => 1 );
@@ -32,7 +32,7 @@ sub _build_schema {
 
 =attr db_file
 
-a string that contains the filename of the C<zotero.sqlite> file
+A string that contains the filename of the C<zotero.sqlite> file
 The default is located in the directory of C<L</profile_directory>> attribute.
 
 =cut
@@ -45,7 +45,7 @@ sub _build_db_file {
 
 =attr storage_directory
 
-a string that contains the directory where the Zotero attachments are located.
+A string that contains the directory where the Zotero attachments are located.
 The default is the C<storage> subdirectory of the C<L</profile_directory>> directory.
 
 =cut
@@ -59,18 +59,21 @@ sub _build_storage_directory {
 
 =attr profile_directory
 
-a string that contains the directory where the C<zotero.sqlite> database is located,
-e.g.  C<~/.zotero/zotero/abc123.default/zotero/>.
+A string that contains the directory where the C<zotero.sqlite> database is located,
+
+  $db->profile_directory( "$ENV{HOME}/.zotero/zotero/abc123.default/zotero/" );
 
 =cut
 has profile_directory => ( is => 'rw' );
 
 =attr profile_name
 
-a string containing the profile name to use, e.g. C<abc123.default>, which
-corresponds to a profile directory such as
-C<~/.zotero/zotero/abc123.default/zotero/>. Setting this will set the
+A string containing the profile name to use. Setting this will set the
 C<L</profile_directory>> attribute.
+
+  $db->profile_name( 'abc123.default' );
+  # corresponds to a profile directory such as
+  # <~/.zotero/zotero/abc123.default/zotero/>
 
 =cut
 has profile_name => ( is => 'rw', trigger => 1, builder => 1, lazy => 1 );
@@ -89,10 +92,17 @@ sub _build_profile_name {
 
 =method find_profile_directories()
 
-returns an arrayref of the possible profile diretories that contain a
-Zotero SQLite database
+Returns an arrayref of the possible profile directories that contain a
+Zotero SQLite database. This can be used as a class method.
 
-see: L<http://www.zotero.org/support/zotero_data> 
+see: L<http://www.zotero.org/support/zotero_data>
+
+  Biblio::Zotero::DB->find_profile_directories()
+  # returns:
+  # [
+  #   "$ENV{HOME}/.zotero/zotero/abc123.default/zotero",
+  #   "$ENV{HOME}/.zotero/zotero/def567.default/zotero"
+  # ]
 
 =cut
 
@@ -162,7 +172,8 @@ sub _find_profile_directories_under {
 	my ($self, $dirs) = @_;
 	# finds either
 	# dir('Profiles',<randomstring>,'zotero')
-	# (actually, currently it doesn't check for the Profiles directory)
+	# (actually, currently it doesn't check that it is indeed in the Profiles
+	# directory)
 	# or
 	# dir(<randomstring>, 'zotero')
 	return [ Path::Iterator::Rule->new
@@ -171,3 +182,22 @@ sub _find_profile_directories_under {
 }
 
 1;
+__END__
+
+=head1 SYNOPSIS
+
+  my $db = Biblio::Zotero::DB->new( profile_name => 'abc123.default' );
+  $db->schema->resultset('Item')->all;
+
+=head1 EXAMPLE
+
+  my $newest = ( # find the most recently modified
+    map { $_->[0] }
+    sort { $a->[1] <=> $b->[1] }
+    map { [$_, -M $_ ] }
+    @{Biblio::Zotero::DB->find_profile_directories}
+  )[0];
+  my $db = Biblio::Zotero::DB->new( profile_directory => $newest  );
+  $db->schema->resultset('Item')->all;
+
+=cut
