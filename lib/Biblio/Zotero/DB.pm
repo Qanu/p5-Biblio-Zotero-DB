@@ -196,10 +196,10 @@ see: L<http://www.zotero.org/support/zotero_data>
 
   Biblio::Zotero::DB->find_profile_directories()
   # returns:
-	# [
-	#   "/home/zaki/.zotero/zotero/abc123.default/zotero",
-	#   "/home/zaki/.zotero/zotero/def567.default/zotero"
-	# ]
+  # [
+  #   "/home/zaki/.zotero/zotero/abc123.default/zotero",
+  #   "/home/zaki/.zotero/zotero/def567.default/zotero"
+  # ]
 
 =head1 EXAMPLE
 
