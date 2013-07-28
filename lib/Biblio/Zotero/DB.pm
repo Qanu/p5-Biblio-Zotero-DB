@@ -9,7 +9,6 @@ use Moo;
 use File::HomeDir;
 use Path::Class;
 use Path::Iterator::Rule;
-use Class::Method::Modifiers;
 use List::AllUtils qw(first);
 
 use Biblio::Zotero::DB::Schema;
