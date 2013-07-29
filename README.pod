@@ -19,6 +19,8 @@ version 0.001
 
 A L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file.
 
+This can be cleared using C<clear_schema>.
+
 =head2 db_file
 
 A string that contains the filename of the C<zotero.sqlite> file
@@ -62,6 +64,7 @@ see: L<http://www.zotero.org/support/zotero_data>
 
 =head1 EXAMPLE
 
+  use Biblio::Zotero::DB;
   my $newest = ( # find the most recently modified
     map { $_->[0] }
     sort { $a->[1] <=> $b->[1] }
@@ -69,7 +72,16 @@ see: L<http://www.zotero.org/support/zotero_data>
     @{Biblio::Zotero::DB->find_profile_directories}
   )[0];
   my $db = Biblio::Zotero::DB->new( profile_directory => $newest  );
+  # if there is an issue with the database lock here, see L<Biblio::Zotero::DB::Role::CopyDB>
   $db->schema->resultset('Item')->all;
+
+=head1 SEE ALSO
+
+=over 4
+
+=item * L<Biblio::Zotero::DB::Role::CopyDB>
+
+=back
 
 =head1 AUTHOR
 

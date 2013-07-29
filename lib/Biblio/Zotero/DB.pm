@@ -193,6 +193,7 @@ __END__
 
 =head1 EXAMPLE
 
+  use Biblio::Zotero::DB;
   my $newest = ( # find the most recently modified
     map { $_->[0] }
     sort { $a->[1] <=> $b->[1] }
@@ -200,6 +201,15 @@ __END__
     @{Biblio::Zotero::DB->find_profile_directories}
   )[0];
   my $db = Biblio::Zotero::DB->new( profile_directory => $newest  );
+  # if there is an issue with the database lock here, see L<Biblio::Zotero::DB::Role::CopyDB>
   $db->schema->resultset('Item')->all;
+
+=head1 SEE ALSO
+
+=over 4
+
+=item * L<Biblio::Zotero::DB::Role::CopyDB>
+
+=back
 
 =cut
