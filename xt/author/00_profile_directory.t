@@ -1,12 +1,16 @@
 use Test::Most tests => 7;
 use strict;
 use Path::Class;
+use File::HomeDir;
 
 BEGIN { use_ok 'Biblio::Zotero::DB' }
 
-# TODO, these tests should build a directory and remove it later
-use constant PROFILE_NAME => 'p1qrkl5z.test';
-use constant PROFILE_DIRECTORY => '/home/zaki/.zotero/zotero/p1qrkl5z.test/zotero';
+use constant PROFILE_NAME => '1234.biblio-zotero-db-test';
+use constant PROFILE_DIRECTORY => File::HomeDir->my_home.'/.zotero/zotero/'.PROFILE_NAME.'/zotero';
+
+die "author test is only setup for Linux systems" if $^O ne 'linux';
+
+dir(PROFILE_DIRECTORY)->mkpath(1); # create test directory
 
 test_find_profile_directories();
 test_attr_profile_name();
@@ -14,6 +18,9 @@ test_attr_profile_directory();
 test_attr_storage_directory();
 test_attr_db_file();
 test_attr_schema();
+
+dir(PROFILE_DIRECTORY)->parent->rmtree(1); # clean up
+
 
 sub test_find_profile_directories {
   my $db = Biblio::Zotero::DB->new;
