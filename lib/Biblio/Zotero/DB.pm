@@ -17,8 +17,10 @@ use Biblio::Zotero::DB::Schema;
 
 A L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file.
 
+This can be cleared using C<clear_schema>.
+
 =cut
-has schema => ( is => 'rw', builder => 1, lazy => 1 );
+has schema => ( is => 'rw', builder => 1, lazy => 1, clearer => 1 );
 
 sub _build_schema {
 	my ($self) = @_;
