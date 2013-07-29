@@ -164,7 +164,7 @@ This can be cleared using C<clear_schema>.
 
 =head2 db_file
 
-A string that contains the filename of the C<zotero.sqlite> file
+A string that contains the filename of the C<zotero.sqlite> file.
 The default is located in the directory of C<L</profile_directory>> attribute.
 
 =head2 storage_directory
