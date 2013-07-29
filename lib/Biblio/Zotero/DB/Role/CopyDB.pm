@@ -64,7 +64,7 @@ __END__
 It is likely to that you might have Zotero open while using
 L<Biblio::Zotero::DB>. This causes problems as the database file will be locked
 as long as Zotero is running. To get around that, applying this role will
-create a copy whenever the C<schema> attribute of L<Biblio::Zotero::DB> is
+create a copy whenever the C<L<schema|Biblio::Zotero::DB/schema>> attribute of L<Biblio::Zotero::DB> is
 built.
 
 =cut
