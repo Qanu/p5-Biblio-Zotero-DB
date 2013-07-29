@@ -34,7 +34,7 @@ sub _build_schema {
 
 =attr db_file
 
-A string that contains the filename of the C<zotero.sqlite> file
+A string that contains the filename of the C<zotero.sqlite> file.
 The default is located in the directory of C<L</profile_directory>> attribute.
 
 =cut
@@ -194,14 +194,14 @@ __END__
 =head1 EXAMPLE
 
   use Biblio::Zotero::DB;
-  my $newest = ( # find the most recently modified
-    map { $_->[0] }
-    sort { $a->[1] <=> $b->[1] }
-    map { [$_, -M $_ ] }
-    @{Biblio::Zotero::DB->find_profile_directories}
-  )[0];
+  use List::UtilsBy qw(min_by);
+
+  # find the most recently modified
+  my $newest = min_by { -M } @{Biblio::Zotero::DB->find_profile_directories};
   my $db = Biblio::Zotero::DB->new( profile_directory => $newest  );
-  # if there is an issue with the database lock here, see L<Biblio::Zotero::DB::Role::CopyDB>
+
+  # if there is an issue with the database lock here,
+  # see L<Biblio::Zotero::DB::Role::CopyDB>
   $db->schema->resultset('Item')->all;
 
 =head1 SEE ALSO
