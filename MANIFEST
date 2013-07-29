@@ -8,6 +8,7 @@ data/create_dbic_schema
 data/zotero.sqlite
 dist.ini
 lib/Biblio/Zotero/DB.pm
+lib/Biblio/Zotero/DB/Role/CopyDB.pm
 lib/Biblio/Zotero/DB/Schema.pm
 lib/Biblio/Zotero/DB/Schema/Result/Annotation.pm
 lib/Biblio/Zotero/DB/Schema/Result/BaseFieldMapping.pm
