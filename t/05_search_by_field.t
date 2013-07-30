@@ -1,10 +1,8 @@
 use strict;
 use warnings;
-use Test::Most tests => 6;
+use Test::Most tests => 5;
 
-BEGIN { use_ok 'Biblio::Zotero::DB::Schema' }
 use lib "t/lib";
-
 use TestData;
 
 my $schema = get_db()->schema;

@@ -1,10 +1,8 @@
 use strict;
 use warnings;
-use Test::Most tests => 5;
+use Test::Most tests => 4;
 
-BEGIN { use_ok 'Biblio::Zotero::DB::Schema' }
 use lib "t/lib";
-
 use TestData;
 use Path::Class;
 use Path::Class::URI;
