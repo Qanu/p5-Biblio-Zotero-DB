@@ -382,4 +382,19 @@ sub fields {
 	$self->item_datas_rs->fields_for_itemid($self->itemid);
 }
 
+=head2 stored_item_attachments_sourceitemids
+
+Type: has_many
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::StoredItemAttachment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "stored_item_attachments_sourceitemids",
+  "Biblio::Zotero::DB::Schema::Result::StoredItemAttachment",
+  { "foreign.sourceitemid" => "self.itemid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 1;
