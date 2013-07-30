@@ -13,6 +13,18 @@ use List::AllUtils qw(first);
 
 use Biblio::Zotero::DB::Schema;
 
+
+# used for L</storage_directory> and L</profile_directory> attr
+my $make_directory_absolute = sub {
+	my $orig = shift;
+	my $self = $_[0];
+	my $dir = $_[1];
+
+	return $orig->($self, dir($dir)->absolute) if($dir);
+
+	return $orig->(@_);
+};
+
 =attr schema
 
 A L<DBIx::Class> schema that is connected to the C<zotero.sqlite> file.
@@ -55,9 +67,10 @@ has storage_directory => ( is => 'rw', builder => 1, lazy => 1 );
 
 sub _build_storage_directory {
 	my ($self) = @_;
-	dir($self->profile_directory)->subdir('storage');
+	dir($self->profile_directory)->subdir('storage')->absolute if $self->profile_directory;
 }
 
+around storage_directory => $make_directory_absolute;
 
 =attr profile_directory
 
@@ -67,6 +80,8 @@ A string that contains the directory where the C<zotero.sqlite> database is loca
 
 =cut
 has profile_directory => ( is => 'rw' );
+
+around profile_directory => $make_directory_absolute;
 
 =attr profile_name
 
