@@ -1,3 +1,0 @@
-#!/bin/sh
-CURDIR=`dirname "$0"`
-cp -p ~/.zotero/zotero/wk3nldax.module-test/zotero/zotero.sqlite "$CURDIR"/zotero-test-data.sqlite

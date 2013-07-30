@@ -16,6 +16,18 @@ use List::AllUtils qw(first);
 
 use Biblio::Zotero::DB::Schema;
 
+
+# used for L</storage_directory> and L</profile_directory> attr
+my $make_directory_absolute = sub {
+	my $orig = shift;
+	my $self = $_[0];
+	my $dir = $_[1];
+
+	return $orig->($self, dir($dir)->absolute) if($dir);
+
+	return $orig->(@_);
+};
+
 has schema => ( is => 'rw', builder => 1, lazy => 1, clearer => 1 );
 
 sub _build_schema {
@@ -39,11 +51,14 @@ has storage_directory => ( is => 'rw', builder => 1, lazy => 1 );
 
 sub _build_storage_directory {
 	my ($self) = @_;
-	dir($self->profile_directory)->subdir('storage');
+	dir($self->profile_directory)->subdir('storage')->absolute if $self->profile_directory;
 }
 
+around storage_directory => $make_directory_absolute;
 
 has profile_directory => ( is => 'rw' );
+
+around profile_directory => $make_directory_absolute;
 
 has profile_name => ( is => 'rw', trigger => 1, builder => 1, lazy => 1 );
 

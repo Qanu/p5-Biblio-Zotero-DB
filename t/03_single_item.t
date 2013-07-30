@@ -1,15 +1,11 @@
 use strict;
 use warnings;
-use Test::Most tests => 9;
+use Test::Most tests => 8;
 
-BEGIN { use_ok 'Biblio::Zotero::DB::Schema' }
 use lib "t/lib";
-
 use TestData;
 
-my $schema;
-my $sqlite_db = get_test_db_path();
-$schema = Biblio::Zotero::DB::Schema->connect('dbi:SQLite:dbname='.$sqlite_db);
+my $schema = get_db()->schema;
 
 my $attachment_itemtypeid = $schema
 	->resultset('ItemType')

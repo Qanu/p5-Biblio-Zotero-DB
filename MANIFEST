@@ -8,7 +8,6 @@ data/create_dbic_schema
 data/zotero.sqlite
 dist.ini
 lib/Biblio/Zotero/DB.pm
-lib/Biblio/Zotero/DB/Item.pm
 lib/Biblio/Zotero/DB/Role/CopyDB.pm
 lib/Biblio/Zotero/DB/Schema.pm
 lib/Biblio/Zotero/DB/Schema/Result/Annotation.pm
@@ -57,6 +56,8 @@ lib/Biblio/Zotero/DB/Schema/Result/SavedSearch.pm
 lib/Biblio/Zotero/DB/Schema/Result/SavedSearchCondition.pm
 lib/Biblio/Zotero/DB/Schema/Result/Setting.pm
 lib/Biblio/Zotero/DB/Schema/Result/StorageDeleteLog.pm
+lib/Biblio/Zotero/DB/Schema/Result/StoredItem.pm
+lib/Biblio/Zotero/DB/Schema/Result/StoredItemAttachment.pm
 lib/Biblio/Zotero/DB/Schema/Result/SyncDeleteLog.pm
 lib/Biblio/Zotero/DB/Schema/Result/SyncObjectType.pm
 lib/Biblio/Zotero/DB/Schema/Result/SyncedSetting.pm
@@ -70,6 +71,9 @@ lib/Biblio/Zotero/DB/Schema/Result/Version.pm
 lib/Biblio/Zotero/DB/Schema/Result/ZoteroDummyTable.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/Item.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/ItemData.pm
+lib/Biblio/Zotero/DB/Schema/ResultSet/StoredItem.pm
+run
+t/00_load_zotero_db.t
 t/00_load_zotero_schema.t
 t/01_database_connect.t
 t/02_get_items.t
@@ -77,7 +81,17 @@ t/03_search_title.t
 t/03_single_item.t
 t/04_storage_dir.t
 t/05_search_by_field.t
+t/06_stored_items.t
 t/lib/TestData.pm
-t/test-data/grab-test-data
-t/test-data/zotero-test-data.sqlite
+t/test-data/abcdef.module-test-stub/zotero/storage/3VS8M64Q/journal.pone.0036007.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/4IGB7RMW/journal.pone.0039493.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/H3NE7PSE/1756-0500-4-434.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/IFHFARMI/journal.pone.0046362.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/IGHS6ZGP/journal.pone.0065263.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/JEC5HSDG/index.html
+t/test-data/abcdef.module-test-stub/zotero/storage/NU95JIDK/Patrick-Wyatt-Writing-reliable-online-game-services.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/TJ76F8X5/modern_perl_a4.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/U4XFVJER/journal.pone.0056935.pdf
+t/test-data/abcdef.module-test-stub/zotero/storage/UI2AB38F/HigherOrderPerl.pdf
+t/test-data/abcdef.module-test-stub/zotero/zotero.sqlite
 xt/author/00_profile_directory.t

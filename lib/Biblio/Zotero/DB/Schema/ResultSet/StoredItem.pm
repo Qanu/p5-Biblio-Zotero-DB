@@ -1,12 +1,11 @@
-package Biblio::Zotero::DB::Item;
+package Biblio::Zotero::DB::Schema::ResultSet::StoredItem;
 {
-  $Biblio::Zotero::DB::Item::VERSION = '0.001';
+  $Biblio::Zotero::DB::Schema::ResultSet::StoredItem::VERSION = '0.001';
 }
 
 use strict;
 use warnings;
-use Moo;
-
+use base 'Biblio::Zotero::DB::Schema::ResultSet::Item';
 
 1;
 
@@ -16,7 +15,7 @@ __END__
 
 =head1 NAME
 
-Biblio::Zotero::DB::Item
+Biblio::Zotero::DB::Schema::ResultSet::StoredItem
 
 =head1 VERSION
 

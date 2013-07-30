@@ -62,8 +62,15 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:roFvJq1zvhoDYyltiT55LQ
 
+# NOTE: extended DBIC schema below
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+# TODO: document
+sub field_value {
+	my ($self) = @_;
+	return $self->fieldid->fieldname => $self->valueid->value;
+}
+
 1;
 
 __END__

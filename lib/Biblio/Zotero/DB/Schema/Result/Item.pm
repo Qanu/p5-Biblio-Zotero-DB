@@ -177,8 +177,28 @@ __PACKAGE__->many_to_many("wordids", "fulltext_item_words", "wordid");
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OcWFl3GnRhMxSUTwxOnJCw
 
+# NOTE: extended DBIC schema below
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+# TODO: document
+sub tag_names {
+	my ($self) = @_;
+	[map { $_->name } $self->tagids];
+}
+
+# TODO: document
+sub fields {
+	my ($self) = @_;
+	$self->item_datas_rs->fields_for_itemid($self->itemid);
+}
+
+
+__PACKAGE__->has_many(
+  "stored_item_attachments_sourceitemids",
+  "Biblio::Zotero::DB::Schema::Result::StoredItemAttachment",
+  { "foreign.sourceitemid" => "self.itemid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 1;
 
 __END__
@@ -364,6 +384,12 @@ Composing rels: L</item_tags> -> tagid
 Type: many_to_many
 
 Composing rels: L</fulltext_item_words> -> wordid
+
+=head2 stored_item_attachments_sourceitemids
+
+Type: has_many
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::StoredItemAttachment>
 
 =head1 AUTHOR
 

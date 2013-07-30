@@ -18,6 +18,8 @@ __PACKAGE__->load_namespaces;
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UlX+tV+7vyST2GUwO/11dw
 
+# NOTE: extended DBIC schema below
+
 use Moo;
 use Path::Class;
 use Path::Class::URI;
