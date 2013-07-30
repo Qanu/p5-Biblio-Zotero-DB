@@ -1,15 +1,13 @@
 use strict;
 use warnings;
-use Test::Most tests => 6;
+use Test::Most tests => 8;
 
 BEGIN { use_ok 'Biblio::Zotero::DB::Schema' }
 use lib "t/lib";
 
 use TestData;
 
-my $schema;
-my $sqlite_db = get_test_db_path();
-$schema = Biblio::Zotero::DB::Schema->connect('dbi:SQLite:dbname='.$sqlite_db);
+my $schema = get_db()->schema;
 
 my $titles;
 my $title_rs;
@@ -22,7 +20,7 @@ is( $attachment_itemtypeid = $schema
 	->search({ 'typename' => 'attachment' })
 	->single->itemtypeid, 14, 'got attachment type ID');
 
-ok( $title_rs = $schema->resultset('Item')->search(
+ok( $title_rs = $schema->resultset('StoredItem')->search(
 		{
 			'fieldid.fieldname' => 'title',
 			'itemtypeid' => { '!=', $attachment_itemtypeid }
@@ -41,18 +39,30 @@ ok( $titles = [
 		->get_column('value')->all
 ], 'got all titles');
 
-is( scalar @$titles, 5, 'correct number of titles');
+is( scalar @$titles, 10, 'correct number of titles');
 
 cmp_deeply( $titles,
 	bag(
-		"Zotero Quick Start Guide",
+		"Big Science vs. Little Science: How Scientific Impact Scales with Funding",
+		"Cognitive Performance and Heart Rate Variability: The Influence of Fitness Level",
+		"Electrical Advantages of Dendritic Spines",
+		"Example.org",
 		"Higher-order Perl: Transforming programs with programs",
 		"Modern Perl",
-		"Electrical Advantages of Dendritic Spines",
-		"Big Science vs. Little Science: How Scientific Impact Scales with Funding",
+		"Selective Light-Triggered Release of DNA from Gold Nanorods Switches Blood Clotting On and Off",
+		"The Collaborative Image of The City: Mapping the Inequality of Urban Perception",
+		"The Power of Kawaii: Viewing Cute Images Promotes a Careful Behavior and Narrows Attentional Focus",
+		"Zotero Quick Start Guide",
 	),
 	'all expected titles are found'
 );
+
+my $html_item_rs =  $schema->resultset('StoredItem')
+	->items_with_attachments_of_mimetypes('text/html');
+ok( $html_item_rs->count >= 1, 'has at least one item with text/html attachment' );
+my @html_item_titles = map { $_->fields->{title} } $html_item_rs->all;
+cmp_deeply( @html_item_titles, any( 'Example.org'),
+	'contains expected item with text/html attachment');
 
 done_testing;
 

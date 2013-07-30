@@ -9,14 +9,10 @@ use TestData;
 use Path::Class;
 use Path::Class::URI;
 
-my $storage_dir = dir($ENV{HOME})->subdir('.zotero/zotero/wk3nldax.module-test/zotero/storage');
 
-my $schema;
-my $sqlite_db = get_test_db_path();
-$schema = Biblio::Zotero::DB::Schema->connect('dbi:SQLite:dbname='.$sqlite_db,
-	'', '',
-	{ zotero_storage_directory => $storage_dir },
-);
+my $db = get_db();
+my $schema = $db->schema;
+my $storage_dir = $db->storage_directory;
 
 is($schema->zotero_storage_directory, $storage_dir, 'Zotero storage attribute exists');
 
