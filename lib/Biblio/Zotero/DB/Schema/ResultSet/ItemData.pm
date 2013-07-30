@@ -8,7 +8,7 @@ sub fields_for_itemid {
 	my ($self, $itemid) = @_;
 
 
-	return { map { $_->fieldid->fieldname => $_->valueid->value }
+	return { map { $_->field_value }
 		$self->search(
 			{ 'itemid' => $itemid },
 			{ prefetch => [qw/fieldid valueid/] }

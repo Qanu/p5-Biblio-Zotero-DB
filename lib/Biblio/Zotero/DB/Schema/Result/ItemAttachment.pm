@@ -190,8 +190,11 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:u4JJM71EtePId8XMpq4WOQ
 
+# NOTE: extended DBIC schema below
+
 use URI;
 
+# TODO: document
 sub uri {
 	my ($self) = @_;
 	if(not defined $self->path) {
