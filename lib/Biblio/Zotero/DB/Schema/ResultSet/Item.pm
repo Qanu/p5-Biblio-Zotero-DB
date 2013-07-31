@@ -2,7 +2,23 @@ package Biblio::Zotero::DB::Schema::ResultSet::Item;
 
 use strict;
 use warnings;
-use base 'DBIx::Class::ResultSet';
+use Moo;
+
+extends 'DBIx::Class::ResultSet';
+
+
+has _item_attachment_resultset => ( is => 'rw', default => sub { 'ItemAttachment' } );
+
+# pass the args as is to the parent --- new() takes no params for the current object
+sub BUILDARGS { shift; { }; }
+sub FOREIGNBUILDARGS { shift; @_; }
+
+sub with_item_attachment_resultset {
+	my ($self, $resultset) = @_;
+	my $self_clone = $self->search({});
+	$self_clone->_item_attachment_resultset($resultset);
+	$self_clone;
+}
 
 sub search_by_field {
 	my ($self, $field_queries) = @_;
@@ -40,7 +56,7 @@ sub items_with_attachments_of_mimetypes {
 	my ($self, @mimetypes) = @_;
 	return unless @mimetypes;
 	my $schema = $self->result_source->schema;
-	my $subquery = $schema->resultset('ItemAttachment')
+	my $subquery = $schema->resultset($self->_item_attachment_resultset)
 		->search(
 			{ mimetype => [ -or => @mimetypes ] },
 			{ '+columns' =>
