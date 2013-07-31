@@ -27,14 +27,26 @@ my $cognitive_count_both = [ map {
 cmp_deeply( $cognitive_count_both, [2, 1], 'Articles with cognitive in the title');
 
 
-sub get_titles {
-	my $rs = shift;
-	[ map { $_->fields->{title}  } $rs->all];
-}
+
+my $original_si_rs = $db->schema->resultset('StoredItem');
+is( $original_si_rs->_item_attachment_resultset, "ItemAttachment", 'default item attachment result set');
+isa_ok( $original_si_rs, 'Biblio::Zotero::DB::Schema::ResultSet::Item');
+my $si_rs_with_another = $original_si_rs->with_item_attachment_resultset('StoredItemAttachment');
+isa_ok( $si_rs_with_another, 'Biblio::Zotero::DB::Schema::ResultSet::Item');
+is( $si_rs_with_another->_item_attachment_resultset, 'StoredItemAttachment', 'create copy with another' );
+
+is( $original_si_rs->_item_attachment_resultset, "ItemAttachment", 'original still the same');
+ok( ! eq_deeply( $original_si_rs, $si_rs_with_another ), 'not the same objects');
+
 
 my $all_pdfs_anywhere_rs = $db->schema->resultset('Item')->items_with_pdf_attachments;
 
 is( $all_pdfs_anywhere_rs->count, 9, 'all PDF anywhere (stored and deleted)' );
+
+sub get_titles {
+	my $rs = shift;
+	[ map { $_->fields->{title}  } $rs->all];
+}
 
 my $storeditems_with_storeditemattachments_pdf_rs = $db->schema
 	->resultset('StoredItem')
