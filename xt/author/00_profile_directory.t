@@ -12,6 +12,8 @@ die "author test is only setup for Linux systems" if $^O ne 'linux';
 
 dir(PROFILE_DIRECTORY)->mkpath(1); # create test directory
 
+die "could not create directory: @{[PROFILE_DIRECTORY]}" unless -d PROFILE_DIRECTORY;
+
 test_find_profile_directories();
 test_attr_profile_name();
 test_attr_profile_directory();
@@ -19,7 +21,9 @@ test_attr_storage_directory();
 test_attr_db_file();
 test_attr_schema();
 
-dir(PROFILE_DIRECTORY)->parent->rmtree(1); # clean up
+END { # clean up at the end
+	dir(PROFILE_DIRECTORY)->parent->rmtree(1);
+}
 
 
 sub test_find_profile_directories {
