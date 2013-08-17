@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::Most tests => 3;
+use Test::Most tests => 11;
 
 use lib "t/lib";
 use TestData;
