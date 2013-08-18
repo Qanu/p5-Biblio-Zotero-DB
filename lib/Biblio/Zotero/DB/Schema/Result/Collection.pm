@@ -191,6 +191,30 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yKzZ7kQPHQsrMv2FSL8wrQ
 
+# NOTE: extended DBIC schema below
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+=attr name
+
+TODO
+
+=cut
+sub name {
+  my $self = shift;
+  return $self->collectionname;
+}
+
+=method items
+
+TODO
+
+=cut
+sub items {
+  my $self = shift;
+	my $schema = $self->result_source->schema;
+  my $items = $self->collection_items
+    ->get_column('itemid')->as_query;
+  $schema->resultset('StoredItem')->search( { itemid => { -in => $items } });
+}
+
 1;

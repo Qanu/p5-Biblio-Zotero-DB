@@ -12,9 +12,10 @@ use Path::Iterator::Rule;
 use List::AllUtils qw(first);
 
 use Biblio::Zotero::DB::Schema;
+use Biblio::Zotero::DB::Library;
 
 
-# used for L</storage_directory> and L</profile_directory> attr
+# used for L</storage_directory> and L</profile_directory> attr 
 my $make_directory_absolute = sub {
 	my $orig = shift;
 	my $self = $_[0];
@@ -130,7 +131,9 @@ see: L<http://www.zotero.org/support/zotero_data>
 # Windows 7/Vista               C:\Users\<User Name>\AppData\Roaming\Mozilla\Firefox\Profiles\<randomstring>\zotero
 # Windows XP/2000               C:\Documents and Settings\<username>\Application Data\Mozilla\Firefox\Profiles\<randomstring>\zotero
 # Linux (most distributions)    ~/.mozilla/firefox/Profiles/<randomstring>/zotero
-
+#
+####
+#
 # Zotero Standalone
 #
 # OS X                          /Users/<username>/Library/Application Support/Zotero/Profiles/<randomstring>/zotero
@@ -196,6 +199,11 @@ sub _find_profile_directories_under {
 	return [ Path::Iterator::Rule->new
 		->min_depth(1)->max_depth(3)
 		->dir->name('zotero')->all( @$dirs ) ];
+}
+
+sub library {
+  my $self = shift;
+  return Biblio::Zotero::DB::Library->new( _db => $self );
 }
 
 1;

@@ -198,7 +198,7 @@ use URI;
 sub uri {
 	my ($self) = @_;
 	if(not defined $self->path) {
-		# TODO get URI from ItemDataValue table
+		# get URI from ItemDataValue table
 		$self->itemid->item_datas_rs->find(
 			{ 'fieldid.fieldname' => 'url', },
 			{ prefetch => [ 'fieldid', 'valueid' ] }
