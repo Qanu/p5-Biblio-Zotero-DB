@@ -16,15 +16,15 @@ Biblio::Zotero::DB::Schema::Result::Collection
 
 =cut
 sub collections {
-  my $self = shift;
-  $self->_db->schema->resultset('Collection');
+	my $self = shift;
+	$self->_db->schema->resultset('Collection');
 }
 
-=attr name 
+=attr name
 
 TODO
 
-=cut 
+=cut
 has name => ( is => 'ro', default => sub { 'My Library' } );
 
 =method items
@@ -42,8 +42,8 @@ TODO
 
 =cut
 sub trash {
-  my $self = shift;
-  Biblio::Zotero::DB::Library::Trash->new( _db => $self->_db );
+	my $self = shift;
+	Biblio::Zotero::DB::Library::Trash->new( _db => $self->_db );
 }
 
 =method unfiled
@@ -52,8 +52,8 @@ TODO
 
 =cut
 sub unfiled {
-  my $self = shift;
-  Biblio::Zotero::DB::Library::Unfiled->new( _db => $self->_db );
+	my $self = shift;
+	Biblio::Zotero::DB::Library::Unfiled->new( _db => $self->_db );
 }
 
 1;

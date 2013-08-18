@@ -15,7 +15,7 @@ use Biblio::Zotero::DB::Schema;
 use Biblio::Zotero::DB::Library;
 
 
-# used for L</storage_directory> and L</profile_directory> attr 
+# used for L</storage_directory> and L</profile_directory> attr
 my $make_directory_absolute = sub {
 	my $orig = shift;
 	my $self = $_[0];
@@ -202,8 +202,8 @@ sub _find_profile_directories_under {
 }
 
 sub library {
-  my $self = shift;
-  return Biblio::Zotero::DB::Library->new( _db => $self );
+	my $self = shift;
+	return Biblio::Zotero::DB::Library->new( _db => $self );
 }
 
 1;

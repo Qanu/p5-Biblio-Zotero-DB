@@ -200,8 +200,8 @@ TODO
 
 =cut
 sub name {
-  my $self = shift;
-  return $self->collectionname;
+	my $self = shift;
+	return $self->collectionname;
 }
 
 =method items
@@ -210,11 +210,11 @@ TODO
 
 =cut
 sub items {
-  my $self = shift;
+	my $self = shift;
 	my $schema = $self->result_source->schema;
-  my $items = $self->collection_items
-    ->get_column('itemid')->as_query;
-  $schema->resultset('StoredItem')->search( { itemid => { -in => $items } });
+	my $items = $self->collection_items
+		->get_column('itemid')->as_query;
+	$schema->resultset('StoredItem')->search( { itemid => { -in => $items } });
 }
 
 1;

@@ -19,7 +19,7 @@ L<File::Temp>.
 
 =item * This must be a writable file or retrieving the
 C<L<schema|Biblio::Zotero::DB/schema>> will C<die>.
- 
+
 =item * This can be cleared using the method C<clear_db_file_temp>.
 
 =back

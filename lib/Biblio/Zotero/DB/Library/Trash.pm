@@ -6,11 +6,11 @@ use Moo;
 
 has _db => ( is => 'ro', weak_ref => 1 );
 
-=attr name 
+=attr name
 
 TODO
 
-=cut 
+=cut
 has name => ( is => 'ro', default => sub { 'Trash' } );
 
 =method items
@@ -19,10 +19,9 @@ TODO
 
 =cut
 sub items {
-  my $self = shift;
+	my $self = shift;
 	my $schema = $self->_db->schema;
-  $schema->resultset('Item')
-    ->trash_items;
+	$schema->resultset('Item')->trash_items;
 }
 
 1;

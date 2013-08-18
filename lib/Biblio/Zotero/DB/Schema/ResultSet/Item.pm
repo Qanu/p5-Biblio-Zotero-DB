@@ -148,7 +148,7 @@ sub trash_items {
 		},
 	)->search(
 		{
-			-and => [ 
+			-and => [
 				{ 'me.itemid' => { 'not in' => $attached } },
 				{ 'me.itemid' => { 'not in' => $noted } }
 			]
