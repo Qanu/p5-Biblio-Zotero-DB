@@ -370,6 +370,16 @@ __PACKAGE__->many_to_many("wordids", "fulltext_item_words", "wordid");
 
 # NOTE: extended DBIC schema below
 
+sub is_attachment {
+  my $self = shift;
+  !! defined $self->item_attachments_itemid;
+}
+
+sub is_source_item {
+  my $self = shift;
+  !! $self->item_attachments_sourceitemids->count;
+}
+
 # TODO: document
 sub tag_names {
 	my ($self) = @_;
