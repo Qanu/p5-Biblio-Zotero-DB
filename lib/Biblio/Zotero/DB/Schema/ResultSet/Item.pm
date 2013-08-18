@@ -98,7 +98,7 @@ sub _attachment_subquery {
 		)->get_column('outputitemid')->as_query;
 }
 
-sub toplevel_items {
+sub _toplevel_items {
 	my $self = shift;
 	my $subquery = $self->_attachment_subquery({});
 	return $self->search_rs(
@@ -113,7 +113,7 @@ sub toplevel_items {
 	);
 }
 
-sub trash_items {
+sub _trash_items {
 	my $self = shift;
 	my $schema = $self->result_source->schema;
 	# an item is in the trash if either the item itself is in deletedItems.itemid

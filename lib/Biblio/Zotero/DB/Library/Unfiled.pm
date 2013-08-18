@@ -25,7 +25,7 @@ sub items {
 		->get_column('itemid')->as_query;
 	$schema->resultset('StoredItem')
 		->with_item_attachment_resultset('StoredItemAttachment')
-		->toplevel_items
+		->_toplevel_items
 		->search( { 'me.itemid' => { 'not in' => $items } });
 }
 

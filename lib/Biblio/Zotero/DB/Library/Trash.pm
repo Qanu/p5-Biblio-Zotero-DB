@@ -21,7 +21,7 @@ TODO
 sub items {
 	my $self = shift;
 	my $schema = $self->_db->schema;
-	$schema->resultset('Item')->trash_items;
+	$schema->resultset('Item')->_trash_items;
 }
 
 1;
