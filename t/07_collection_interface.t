@@ -1,20 +1,15 @@
 use strict;
 use warnings;
-use Test::Most tests => 1;
+use Test::Most tests => 8;
 
 use lib "t/lib";
 use TestData;
 
 my $db = get_db();
 
-my $collections = [ $db->schema->resultset('Collection')->all ];
-#use DDP; p $collections;
-#my @d = $db->schema->resultset('Collection')->find(3)->collection_items->all;
-#use DDP; p $_->itemid->item_datas_rs->fields_for_itemid($_->itemid->itemid) for @d;
-
 my $library = $db->library;
 is( $library->name, 'My Library' );
-##is( $library->items->count, 11 );
+is( $library->items->count, 11 );
 
 is( $library->trash->name, 'Trash' );
 is( $library->trash->items->count, 6 );

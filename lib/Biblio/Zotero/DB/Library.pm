@@ -33,7 +33,11 @@ TODO
 
 =cut
 sub items {
-
+	my $self = shift;
+	my $schema = $self->_db->schema;
+	$schema->resultset('StoredItem')
+		->with_item_attachment_resultset('StoredItemAttachment')
+		->_toplevel_items;
 }
 
 =method trash
