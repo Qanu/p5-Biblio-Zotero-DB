@@ -8,6 +8,9 @@ data/create_dbic_schema
 data/zotero.sqlite
 dist.ini
 lib/Biblio/Zotero/DB.pm
+lib/Biblio/Zotero/DB/Library.pm
+lib/Biblio/Zotero/DB/Library/Trash.pm
+lib/Biblio/Zotero/DB/Library/Unfiled.pm
 lib/Biblio/Zotero/DB/Role/CopyDB.pm
 lib/Biblio/Zotero/DB/Schema.pm
 lib/Biblio/Zotero/DB/Schema/Result/Annotation.pm
@@ -82,6 +85,7 @@ t/03_single_item.t
 t/04_storage_dir.t
 t/05_search_by_field.t
 t/06_stored_items.t
+t/07_collection_interface.t
 t/lib/TestData.pm
 t/test-data/abcdef.module-test-stub/zotero/storage/3VS8M64Q/journal.pone.0036007.pdf
 t/test-data/abcdef.module-test-stub/zotero/storage/4IGB7RMW/journal.pone.0039493.pdf

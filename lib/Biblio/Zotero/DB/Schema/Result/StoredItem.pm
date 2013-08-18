@@ -20,20 +20,15 @@ __PACKAGE__->result_source_instance->view_definition(
 		WHERE ( itemid NOT IN ( SELECT me.itemid FROM deletedItems me ) )
 	]
 );
-# the above view_definition is the same as
+# the above view_definition is the same as:
+# ----------------------------------------
+# my $deleted = $schema->resultset('DeletedItem')
+# 	->get_column('itemid')
+# 	->as_query
 # $schema
 # 	->resultset('Item')
-# 	->search(
-# 		{
-# 			itemid =>
-# 				{ 'not in' =>
-# 					$db->schema
-# 						->resultset('DeletedItem')
-# 						->get_column('itemid')
-# 						->as_query
-# 				}
-# 		}
-# 	)->as_query
+# 	->search( { itemid => { 'not in' => $deleted } })
+# 	->as_query
 
 1;
 
