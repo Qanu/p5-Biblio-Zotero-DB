@@ -210,7 +210,8 @@ sub uri {
 		# link to file in storage
 		my $key = $self->itemid->key;
 		my $subdir = $self->result_source->schema->zotero_storage_directory()->subdir($key);
-		URI->new_abs( uri_escape( $self->path =~ s/^storage://r ) ,
+		URI->new_abs( uri_escape( $self->path =~ s/^storage://r ),
+				# escaping URI because it may not be actually escaped properly in the DB
 			$subdir->uri . "/" # force to be directory
 			# NOTE: see bug report for Path::Class::URI:
 			# <https://github.com/zmughal/Path-Class-URI/issues/1>,
