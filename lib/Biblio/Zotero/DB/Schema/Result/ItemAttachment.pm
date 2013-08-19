@@ -193,10 +193,12 @@ __PACKAGE__->belongs_to(
 # NOTE: extended DBIC schema below
 
 use URI;
+use URI::Escape;
 
 # TODO: document
 sub uri {
 	my ($self) = @_;
+  # TODO handle case where the item in not an attachment
 	if(not defined $self->path) {
 		# get URI from ItemDataValue table
 		$self->itemid->item_datas_rs->find(
@@ -208,7 +210,7 @@ sub uri {
 		# link to file in storage
 		my $key = $self->itemid->key;
 		my $subdir = $self->result_source->schema->zotero_storage_directory()->subdir($key);
-		URI->new_abs( $self->path =~ s/^storage://r,
+		URI->new_abs( uri_escape( $self->path =~ s/^storage://r ) ,
 			$subdir->uri . "/" # force to be directory
 			# NOTE: see bug report for Path::Class::URI:
 			# <https://github.com/zmughal/Path-Class-URI/issues/1>,
