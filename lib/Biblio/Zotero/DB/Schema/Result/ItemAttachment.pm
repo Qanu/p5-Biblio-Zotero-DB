@@ -201,10 +201,10 @@ sub uri {
   # TODO handle case where the item in not an attachment
 	if(not defined $self->path) {
 		# get URI from ItemDataValue table
-		$self->itemid->item_datas_rs->find(
+		URI->new( $self->itemid->item_datas_rs->find(
 			{ 'fieldid.fieldname' => 'url', },
 			{ prefetch => [ 'fieldid', 'valueid' ] }
-		)->valueid->value;
+		)->valueid->value );
 	}
 	elsif($self->path =~ /^storage:/) {
 		# link to file in storage
