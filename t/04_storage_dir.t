@@ -33,6 +33,7 @@ subtest 'testing attachment to URI' => sub {
 	for my $attach ($attachments->all) {
 		my $itemid = $attach->itemid->itemid;
 		my $uri = $attach->uri;
+		isa_ok $uri, 'URI';
 		is($uri, $itemid_to_uri->{$itemid}, "mapped item attachment to @{[$itemid_to_uri->{$itemid}]}" );
 	}
 };

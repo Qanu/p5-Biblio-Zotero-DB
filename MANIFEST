@@ -69,6 +69,7 @@ lib/Biblio/Zotero/DB/Schema/Result/Transaction.pm
 lib/Biblio/Zotero/DB/Schema/Result/TransactionLog.pm
 lib/Biblio/Zotero/DB/Schema/Result/TransactionSet.pm
 lib/Biblio/Zotero/DB/Schema/Result/TranslatorCache.pm
+lib/Biblio/Zotero/DB/Schema/Result/TrashItemAttachment.pm
 lib/Biblio/Zotero/DB/Schema/Result/User.pm
 lib/Biblio/Zotero/DB/Schema/Result/Version.pm
 lib/Biblio/Zotero/DB/Schema/Result/ZoteroDummyTable.pm
@@ -86,6 +87,9 @@ t/04_storage_dir.t
 t/05_search_by_field.t
 t/06_stored_items.t
 t/07_collection_interface.t
+t/08_attachment_views.t
+t/09_item_type.t
+t/10_utf8.t
 t/lib/TestData.pm
 t/test-data/abcdef.module-test-stub/zotero/storage/3VS8M64Q/journal.pone.0036007.pdf
 t/test-data/abcdef.module-test-stub/zotero/storage/4IGB7RMW/journal.pone.0039493.pdf

@@ -1,6 +1,6 @@
-package Biblio::Zotero::DB::Schema::Result::StoredItemAttachment;
+package Biblio::Zotero::DB::Schema::Result::TrashItemAttachment;
 {
-  $Biblio::Zotero::DB::Schema::Result::StoredItemAttachment::VERSION = '0.001';
+  $Biblio::Zotero::DB::Schema::Result::TrashItemAttachment::VERSION = '0.001';
 }
 
 # TODO: document
@@ -10,7 +10,7 @@ use warnings;
 use base qw/Biblio::Zotero::DB::Schema::Result::ItemAttachment/;
 
 __PACKAGE__->table_class('DBIx::Class::ResultSource::View');
-__PACKAGE__->table('storedItemAttachments');
+__PACKAGE__->table('trashItemAttachments');
 __PACKAGE__->result_source_instance->is_virtual(1);
 
 # NOTE: SQL
@@ -18,13 +18,9 @@ __PACKAGE__->result_source_instance->view_definition(
 	q[
 	SELECT * FROM itemAttachments me
 		WHERE (
-			itemid NOT IN ( SELECT me.itemid FROM deletedItems me )
-			AND
-			(
-				sourceitemid IS NULL
-				OR
-				sourceitemid NOT IN ( SELECT me.itemid FROM deletedItems me )
-			)
+        itemid IN ( SELECT me.itemid FROM deletedItems me )
+        OR
+        sourceitemid IN ( SELECT me.itemid FROM deletedItems me )
 		)
 	]
 );
@@ -36,14 +32,11 @@ __PACKAGE__->result_source_instance->view_definition(
 # $schema
 # 	->resultset('ItemAttachment')
 # 	->search(
-# 		{ -and => [ { itemid => { -not_in => $deleted } },
-# 			{ -or => [ { sourceitemid => undef },
-# 				{ sourceitemid => { -not_in => $deleted } }] }
-# 		] }
+# 		{ -or => [ { itemid => { -in => $deleted } },
+# 				{ sourceitemid => { -in => $deleted } } ]
+# 		}
 # 	)->as_query
 # ####
-# the clause checking the sourceitemid is for when only the source item is
-# marked as deleted, but the attachment is not
 
 1;
 
@@ -55,7 +48,7 @@ __END__
 
 =head1 NAME
 
-Biblio::Zotero::DB::Schema::Result::StoredItemAttachment
+Biblio::Zotero::DB::Schema::Result::TrashItemAttachment
 
 =head1 VERSION
 

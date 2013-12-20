@@ -164,6 +164,8 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Biblio::Zotero::DB - helper module to access the Zotero SQLite database

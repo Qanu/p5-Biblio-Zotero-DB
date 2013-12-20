@@ -37,6 +37,8 @@ around connection => sub {
 	)->absolute) if(exists $attr->{zotero_storage_directory});
 
 	$attr->{ReadOnly} = 1; # force to be readonly
+  $attr->{sqlite_unicode} = 1; # strings are UTF-8
+  # there are no SQL_BLOB types in the schema, so this should be fine
 
 	$inner->(@_);
 };
@@ -46,6 +48,8 @@ around connection => sub {
 __END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 

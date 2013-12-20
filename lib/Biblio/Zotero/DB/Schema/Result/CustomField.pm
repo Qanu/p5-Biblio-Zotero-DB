@@ -57,6 +57,8 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Biblio::Zotero::DB::Schema::Result::CustomField

@@ -179,6 +179,16 @@ __PACKAGE__->many_to_many("wordids", "fulltext_item_words", "wordid");
 
 # NOTE: extended DBIC schema below
 
+sub is_attachment {
+  my $self = shift;
+  !! defined $self->item_attachments_itemid;
+}
+
+sub is_source_item {
+  my $self = shift;
+  !! $self->item_attachments_sourceitemids->count;
+}
+
 # TODO: document
 sub tag_names {
 	my ($self) = @_;
@@ -199,11 +209,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+
+__PACKAGE__->has_many(
+  "trash_item_attachments_sourceitemids",
+  "Biblio::Zotero::DB::Schema::Result::TrashItemAttachment",
+  { "foreign.sourceitemid" => "self.itemid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 1;
 
 __END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -390,6 +410,12 @@ Composing rels: L</fulltext_item_words> -> wordid
 Type: has_many
 
 Related object: L<Biblio::Zotero::DB::Schema::Result::StoredItemAttachment>
+
+=head2 trash_item_attachments_sourceitemids
+
+Type: has_many
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::TrashItemAttachment>
 
 =head1 AUTHOR
 

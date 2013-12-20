@@ -40,6 +40,8 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Biblio::Zotero::DB::Role::CopyDB - A role to copy the database to a temporary file.

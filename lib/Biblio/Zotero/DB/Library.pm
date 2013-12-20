@@ -19,7 +19,11 @@ sub collections {
 has name => ( is => 'ro', default => sub { 'My Library' } );
 
 sub items {
-
+	my $self = shift;
+	my $schema = $self->_db->schema;
+	$schema->resultset('StoredItem')
+		->with_item_attachment_resultset('StoredItemAttachment')
+		->_toplevel_items;
 }
 
 sub trash {
@@ -37,6 +41,8 @@ sub unfiled {
 __END__
 
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 

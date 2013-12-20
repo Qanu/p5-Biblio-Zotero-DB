@@ -34,6 +34,7 @@ my %WriteMakefileArgs = (
     "Path::Class::URI" => 0,
     "Path::Iterator::Rule" => 0,
     "URI" => 0,
+    "URI::Escape" => 0,
     "base" => 0,
     "strict" => 0,
     "utf8" => 0,
@@ -43,7 +44,9 @@ my %WriteMakefileArgs = (
     "Exporter" => 0,
     "Test::More" => 0,
     "Test::Most" => 0,
-    "lib" => 0
+    "Unicode::Normalize" => 0,
+    "lib" => 0,
+    "utf8::all" => 0
   },
   "VERSION" => "0.001",
   "test" => {
@@ -52,30 +55,39 @@ my %WriteMakefileArgs = (
 );
 
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
-  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
-  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
-  for my $mod ( keys %$tr ) {
-    if ( exists $br->{$mod} ) {
-      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
-    }
-    else {
-      $br->{$mod} = $tr->{$mod};
-    }
-  }
-}
+my %FallbackPrereqs = (
+  "DBD::SQLite" => "1.39",
+  "DBIx::Class::Core" => 0,
+  "DBIx::Class::ResultSet" => 0,
+  "DBIx::Class::Schema" => 0,
+  "Exporter" => 0,
+  "File::Copy" => 0,
+  "File::HomeDir" => 0,
+  "File::Temp" => 0,
+  "List::AllUtils" => 0,
+  "Moo" => 0,
+  "Moo::Role" => 0,
+  "Path::Class" => 0,
+  "Path::Class::URI" => 0,
+  "Path::Iterator::Rule" => 0,
+  "Test::More" => 0,
+  "Test::Most" => 0,
+  "URI" => 0,
+  "URI::Escape" => 0,
+  "Unicode::Normalize" => 0,
+  "base" => 0,
+  "lib" => 0,
+  "strict" => 0,
+  "utf8" => 0,
+  "utf8::all" => 0,
+  "warnings" => 0
+);
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
-  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM};
-  for my $mod ( keys %$br ) {
-    if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
-    }
-    else {
-      $pp->{$mod} = $br->{$mod};
-    }
-  }
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
