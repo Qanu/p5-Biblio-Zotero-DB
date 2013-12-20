@@ -76,7 +76,6 @@ lib/Biblio/Zotero/DB/Schema/Result/ZoteroDummyTable.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/Item.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/ItemData.pm
 lib/Biblio/Zotero/DB/Schema/ResultSet/StoredItem.pm
-run
 t/00_load_zotero_db.t
 t/00_load_zotero_schema.t
 t/01_database_connect.t
