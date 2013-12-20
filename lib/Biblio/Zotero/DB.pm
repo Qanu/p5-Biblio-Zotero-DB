@@ -96,7 +96,6 @@ sub _build_profile_name {
 
 sub find_profile_directories {
 	my ($self) = @_;
-	$^O = 'eep';
 	for($^O) {
 		return $self->_find_profile_directories_linux if($_ eq 'linux');
 		return $self->_find_profile_directories_osx   if($_ eq 'darwin');
