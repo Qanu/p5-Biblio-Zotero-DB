@@ -1,6 +1,6 @@
 package Biblio::Zotero::DB::Library::Unfiled;
 {
-  $Biblio::Zotero::DB::Library::Unfiled::VERSION = '0.001';
+  $Biblio::Zotero::DB::Library::Unfiled::VERSION = '0.002';
 }
 
 use strict;
@@ -36,7 +36,7 @@ Biblio::Zotero::DB::Library::Unfiled
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 ATTRIBUTES
 

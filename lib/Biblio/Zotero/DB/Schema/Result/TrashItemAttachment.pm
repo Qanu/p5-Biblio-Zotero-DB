@@ -1,6 +1,6 @@
 package Biblio::Zotero::DB::Schema::Result::TrashItemAttachment;
 {
-  $Biblio::Zotero::DB::Schema::Result::TrashItemAttachment::VERSION = '0.001';
+  $Biblio::Zotero::DB::Schema::Result::TrashItemAttachment::VERSION = '0.002';
 }
 
 # TODO: document
@@ -52,7 +52,7 @@ Biblio::Zotero::DB::Schema::Result::TrashItemAttachment
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 AUTHOR
 

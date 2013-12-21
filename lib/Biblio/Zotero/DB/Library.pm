@@ -1,6 +1,6 @@
 package Biblio::Zotero::DB::Library;
 {
-  $Biblio::Zotero::DB::Library::VERSION = '0.001';
+  $Biblio::Zotero::DB::Library::VERSION = '0.002';
 }
 
 use strict;
@@ -50,7 +50,7 @@ Biblio::Zotero::DB::Library
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 ATTRIBUTES
 

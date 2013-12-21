@@ -35,11 +35,11 @@ requires:
   URI: 0
   URI::Escape: 0
   base: 0
-  perl: v5.10.0
+  perl: 5.014
   strict: 0
   utf8: 0
   warnings: 0
 resources:
   homepage: https://github.com/zmughal/p5-Biblio-Zotero-DB
   repository: https://github.com/zmughal/p5-Biblio-Zotero-DB.git
-version: 0.001
+version: 0.002

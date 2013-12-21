@@ -1,6 +1,6 @@
 package Biblio::Zotero::DB::Library::Trash;
 {
-  $Biblio::Zotero::DB::Library::Trash::VERSION = '0.001';
+  $Biblio::Zotero::DB::Library::Trash::VERSION = '0.002';
 }
 
 use strict;
@@ -31,7 +31,7 @@ Biblio::Zotero::DB::Library::Trash
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 ATTRIBUTES
 

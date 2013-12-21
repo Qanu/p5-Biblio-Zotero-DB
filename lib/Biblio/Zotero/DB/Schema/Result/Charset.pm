@@ -1,7 +1,7 @@
 use utf8;
 package Biblio::Zotero::DB::Schema::Result::Charset;
 {
-  $Biblio::Zotero::DB::Schema::Result::Charset::VERSION = '0.001';
+  $Biblio::Zotero::DB::Schema::Result::Charset::VERSION = '0.002';
 }
 
 # Created by DBIx::Class::Schema::Loader
@@ -50,7 +50,7 @@ Biblio::Zotero::DB::Schema::Result::Charset
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 NAME
 

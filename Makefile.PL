@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.010000;
+use 5.014;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -48,7 +48,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "utf8::all" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
