@@ -1,8 +1,5 @@
 package Biblio::Zotero::DB::Schema::Result::StoredItemAttachment;
-{
-  $Biblio::Zotero::DB::Schema::Result::StoredItemAttachment::VERSION = '0.002';
-}
-
+$Biblio::Zotero::DB::Schema::Result::StoredItemAttachment::VERSION = '0.003';
 # TODO: document
 
 use strict;
@@ -59,7 +56,7 @@ Biblio::Zotero::DB::Schema::Result::StoredItemAttachment
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 AUTHOR
 

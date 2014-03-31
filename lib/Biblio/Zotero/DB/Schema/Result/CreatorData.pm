@@ -1,9 +1,6 @@
 use utf8;
 package Biblio::Zotero::DB::Schema::Result::CreatorData;
-{
-  $Biblio::Zotero::DB::Schema::Result::CreatorData::VERSION = '0.002';
-}
-
+$Biblio::Zotero::DB::Schema::Result::CreatorData::VERSION = '0.003';
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
@@ -63,7 +60,7 @@ Biblio::Zotero::DB::Schema::Result::CreatorData
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 NAME
 

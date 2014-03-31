@@ -1,8 +1,5 @@
 package Biblio::Zotero::DB::Schema::Result::StoredItem;
-{
-  $Biblio::Zotero::DB::Schema::Result::StoredItem::VERSION = '0.002';
-}
-
+$Biblio::Zotero::DB::Schema::Result::StoredItem::VERSION = '0.003';
 # TODO: document
 
 use strict;
@@ -44,7 +41,7 @@ Biblio::Zotero::DB::Schema::Result::StoredItem
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 AUTHOR
 

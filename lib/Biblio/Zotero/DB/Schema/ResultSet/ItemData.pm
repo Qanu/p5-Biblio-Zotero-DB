@@ -1,8 +1,5 @@
 package Biblio::Zotero::DB::Schema::ResultSet::ItemData;
-{
-  $Biblio::Zotero::DB::Schema::ResultSet::ItemData::VERSION = '0.002';
-}
-
+$Biblio::Zotero::DB::Schema::ResultSet::ItemData::VERSION = '0.003';
 use strict;
 use warnings;
 use base 'DBIx::Class::ResultSet';
@@ -33,7 +30,7 @@ Biblio::Zotero::DB::Schema::ResultSet::ItemData
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 AUTHOR
 

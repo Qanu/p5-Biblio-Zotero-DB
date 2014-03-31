@@ -1,9 +1,6 @@
 use utf8;
 package Biblio::Zotero::DB::Schema::Result::Collection;
-{
-  $Biblio::Zotero::DB::Schema::Result::Collection::VERSION = '0.002';
-}
-
+$Biblio::Zotero::DB::Schema::Result::Collection::VERSION = '0.003';
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
@@ -108,6 +105,10 @@ sub items {
 	$schema->resultset('StoredItem')->search( { itemid => { -in => $items } });
 }
 
+
+__PACKAGE__->load_components("Tree::AdjacencyList");
+__PACKAGE__->parent_column('parentcollectionid');
+
 1;
 
 __END__
@@ -122,7 +123,7 @@ Biblio::Zotero::DB::Schema::Result::Collection
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 ATTRIBUTES
 

@@ -1,9 +1,6 @@
 use utf8;
 package Biblio::Zotero::DB::Schema::Result::ItemData;
-{
-  $Biblio::Zotero::DB::Schema::Result::ItemData::VERSION = '0.002';
-}
-
+$Biblio::Zotero::DB::Schema::Result::ItemData::VERSION = '0.003';
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
@@ -85,7 +82,7 @@ Biblio::Zotero::DB::Schema::Result::ItemData
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 NAME
 
