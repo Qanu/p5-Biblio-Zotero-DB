@@ -193,6 +193,15 @@ __PACKAGE__->belongs_to(
 
 # NOTE: extended DBIC schema below
 
+=head1 SUMMARY
+
+This represents the collection and subcollections (folder) structure of Zotero.
+
+This class uses a L<Tree::AdjacencyList|DBIx::Class::Tree::AdjacencyList>
+component to represent the parent-child relationship between collections.
+
+=cut
+
 
 =attr name
 
@@ -216,5 +225,9 @@ sub items {
 		->get_column('itemid')->as_query;
 	$schema->resultset('StoredItem')->search( { itemid => { -in => $items } });
 }
+
+
+__PACKAGE__->load_components("Tree::AdjacencyList");
+__PACKAGE__->parent_column('parentcollectionid');
 
 1;
