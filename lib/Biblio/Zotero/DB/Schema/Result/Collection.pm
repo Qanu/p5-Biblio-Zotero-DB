@@ -92,6 +92,7 @@ __PACKAGE__->belongs_to(
 # NOTE: extended DBIC schema below
 
 
+
 sub name {
 	my $self = shift;
 	return $self->collectionname;
@@ -230,6 +231,13 @@ Related object: L<Biblio::Zotero::DB::Schema::Result::Collection>
 Type: belongs_to
 
 Related object: L<Biblio::Zotero::DB::Schema::Result::Collection>
+
+=head1 SUMMARY
+
+This represents the collection and subcollections (folder) structure of Zotero.
+
+This class uses a L<Tree::AdjacencyList|DBIx::Class::Tree::AdjacencyList>
+component to represent the parent-child relationship between collections.
 
 =head1 AUTHOR
 
