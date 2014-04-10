@@ -1,6 +1,9 @@
 package Biblio::Zotero::DB;
+{
+  $Biblio::Zotero::DB::VERSION = '0.003';
+}
 # ABSTRACT: helper module to access the Zotero SQLite database
-$Biblio::Zotero::DB::VERSION = '0.003';
+
 use strict;
 use warnings;
 

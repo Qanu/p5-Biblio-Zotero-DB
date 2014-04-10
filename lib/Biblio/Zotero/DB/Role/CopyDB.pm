@@ -1,6 +1,9 @@
 package Biblio::Zotero::DB::Role::CopyDB;
+{
+  $Biblio::Zotero::DB::Role::CopyDB::VERSION = '0.003';
+}
 # ABSTRACT: A role to copy the database to a temporary file.
-$Biblio::Zotero::DB::Role::CopyDB::VERSION = '0.003';
+
 use strict;
 use warnings;
 use Moo::Role;

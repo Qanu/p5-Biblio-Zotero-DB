@@ -1,5 +1,8 @@
 package Biblio::Zotero::DB::Schema::Result::StoredItemAttachment;
-$Biblio::Zotero::DB::Schema::Result::StoredItemAttachment::VERSION = '0.003';
+{
+  $Biblio::Zotero::DB::Schema::Result::StoredItemAttachment::VERSION = '0.003';
+}
+
 # TODO: document
 
 use strict;

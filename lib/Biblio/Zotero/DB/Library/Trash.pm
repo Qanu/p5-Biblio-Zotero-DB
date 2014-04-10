@@ -1,5 +1,8 @@
 package Biblio::Zotero::DB::Library::Trash;
-$Biblio::Zotero::DB::Library::Trash::VERSION = '0.003';
+{
+  $Biblio::Zotero::DB::Library::Trash::VERSION = '0.003';
+}
+
 use strict;
 use warnings;
 use Moo;
