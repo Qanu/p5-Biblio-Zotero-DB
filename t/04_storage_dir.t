@@ -25,8 +25,9 @@ is( $attachments->count, 3,  'got 3 attachments');
 
 my $itemid_to_uri = {
 	3 => URI->new('http://hop.perl.plover.com/'), # link to URI, path: <undef>
-	6 => URI->new_abs('UI2AB38F/HigherOrderPerl.pdf', $storage_dir->uri . "/"), # in storage, path: <storage:HigherOrderPerl.pdf>
-	11 => URI->new('/tmp/HOP.tgz', 'file'),  # link to file, path: </tmp/HOP.tgz>
+	# TODO the regex below is a fix for Path::Class::URI. Remove later when new version is released.
+	6 => URI->new_abs('UI2AB38F/HigherOrderPerl.pdf', $storage_dir->uri->as_string =~ s,[^/]$,$&/,r ), # in storage, path: <storage:HigherOrderPerl.pdf>
+	11 => file('/tmp/HOP.tgz')->uri,  # link to file, path: </tmp/HOP.tgz>
 };
 
 subtest 'testing attachment to URI' => sub {
