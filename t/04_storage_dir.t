@@ -23,9 +23,9 @@ ok( $attachments = $schema->resultset('ItemAttachment')->search(
 
 is( $attachments->count, 3,  'got 3 attachments');
 
-my $storage_uri = 
 my $itemid_to_uri = {
 	3 => URI->new('http://hop.perl.plover.com/'), # link to URI, path: <undef>
+	# TODO the regex below is a fix for Path::Class::URI. Remove later when new version is released.
 	6 => URI->new_abs('UI2AB38F/HigherOrderPerl.pdf', $storage_dir->uri->as_string =~ s,[^/]$,$&/,r ), # in storage, path: <storage:HigherOrderPerl.pdf>
 	11 => file('/tmp/HOP.tgz')->uri,  # link to file, path: </tmp/HOP.tgz>
 };

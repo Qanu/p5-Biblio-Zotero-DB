@@ -110,6 +110,7 @@ sub uri {
 		my $subdir = $self->result_source->schema->zotero_storage_directory()->subdir($key);
 
 		my $subdir_uri = $subdir->uri->as_string;
+		# TODO the regex below is a fix for Path::Class::URI. Remove later when new version is released.
 		$subdir_uri .= "/" if $subdir_uri !~ m,/$,,; # force to be directory
 		# NOTE: see bug report for Path::Class::URI:
 		# <https://github.com/zmughal/Path-Class-URI/issues/1>,
