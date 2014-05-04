@@ -1,3 +1,7 @@
+0.003 2014-05-04 11:53:09-0500
+    - add Tree::AdjacencyList component to Collection result class
+    - fix to ItemAttachment ->uri method: link to file on disk is escaped
+
 0.002 2013-12-20 23:59:47-0600
     - specify minimum Perl v5.14
 
