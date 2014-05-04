@@ -1,9 +1,6 @@
 use utf8;
 package Biblio::Zotero::DB::Schema::Result::ItemAttachment;
-{
-  $Biblio::Zotero::DB::Schema::Result::ItemAttachment::VERSION = '0.003';
-}
-
+$Biblio::Zotero::DB::Schema::Result::ItemAttachment::VERSION = '0.003';
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
@@ -93,11 +90,13 @@ __PACKAGE__->belongs_to(
 
 use URI;
 use URI::Escape;
+use Path::Class;
+use Path::Class::URI;
 
 # TODO: document
 sub uri {
 	my ($self) = @_;
-  # TODO handle case where the item in not an attachment
+	# TODO handle case where the item in not an attachment
 	if(not defined $self->path) {
 		# get URI from ItemDataValue table
 		URI->new( $self->itemid->item_datas_rs->find(
@@ -118,7 +117,7 @@ sub uri {
 		);
 	} else {
 		# link to file
-		URI->new($self->path, 'file'); # NOTE this needs to be check for Zotero on non-Unix systems
+		file($self->path)->uri; # NOTE this needs to be check for Zotero on non-Unix systems
 	}
 }
 

@@ -1,8 +1,5 @@
 package Biblio::Zotero::DB::Schema::Result::TrashItemAttachment;
-{
-  $Biblio::Zotero::DB::Schema::Result::TrashItemAttachment::VERSION = '0.003';
-}
-
+$Biblio::Zotero::DB::Schema::Result::TrashItemAttachment::VERSION = '0.003';
 # TODO: document
 
 use strict;

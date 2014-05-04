@@ -1,8 +1,5 @@
 package Biblio::Zotero::DB::Schema::Result::StoredItem;
-{
-  $Biblio::Zotero::DB::Schema::Result::StoredItem::VERSION = '0.003';
-}
-
+$Biblio::Zotero::DB::Schema::Result::StoredItem::VERSION = '0.003';
 # TODO: document
 
 use strict;

@@ -1,8 +1,5 @@
 package Biblio::Zotero::DB::Library::Unfiled;
-{
-  $Biblio::Zotero::DB::Library::Unfiled::VERSION = '0.003';
-}
-
+$Biblio::Zotero::DB::Library::Unfiled::VERSION = '0.003';
 use strict;
 use warnings;
 use Moo;
