@@ -1,3 +1,6 @@
+0.004 2014-12-15 19:13:49-0600
+    - remove hack for Path::Class::URI now that Path::Class::URI v0.05 is out
+
 0.003 2014-05-04 11:53:09-0500
     - add Tree::AdjacencyList component to Collection result class
     - fix to ItemAttachment ->uri method: link to file on disk is escaped
