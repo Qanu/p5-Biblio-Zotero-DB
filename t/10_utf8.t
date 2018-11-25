@@ -17,7 +17,7 @@ my $item = $db
 
 my $authors = [
   map { [ NFC($_->lastname), NFC($_->firstname) ] } # canonicalise all the strings
-  map { $_->creatorid->creatordataid }
+  map { $_->creatorid }
   $item->item_creators->all
 ];
 
