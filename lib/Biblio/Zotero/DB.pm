@@ -185,7 +185,12 @@ sub _find_profile_directories_linux {
 	my $find =  [
 		dir(File::HomeDir->my_home , '.mozilla/firefox'),
 		dir(File::HomeDir->my_home , '.zotero/zotero') ];
-	return $self->_find_profile_directories_under($find);
+	my $dirs = $self->_find_profile_directories_under($find);
+
+	my $zotero = dir(File::HomeDir->my_home , 'Zotero');
+	push @$dirs, $zotero if -d $zotero;
+
+	return $dirs;
 }
 
 sub _find_profile_directories_under {
