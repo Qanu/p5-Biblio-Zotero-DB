@@ -67,10 +67,10 @@ sub search_by_field {
 	);
 }
 
-sub items_with_attachments_of_mimetypes {
-	my ($self, @mimetypes) = @_;
-	return unless @mimetypes;
-	my $subquery = $self->_attachment_subquery({ mimetype => [ -or => @mimetypes ] });
+sub items_with_attachments_of_contenttypes {
+	my ($self, @contenttypes) = @_;
+	return unless @contenttypes;
+	my $subquery = $self->_attachment_subquery({ contenttype => [ -or => @contenttypes ] });
 
 	return $self->search_rs(
 		{ 'me.itemid' => { '-in' => $subquery } },
@@ -82,7 +82,7 @@ sub items_with_attachments_of_mimetypes {
 
 sub items_with_pdf_attachments {
 	my ($self) = @_;
-	$self->items_with_attachments_of_mimetypes('application/pdf');
+	$self->items_with_attachments_of_contenttypes('application/pdf');
 }
 
 sub _attachment_subquery {

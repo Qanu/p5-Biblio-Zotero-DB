@@ -40,7 +40,7 @@ is($attachments->count, 1, 'has 1 attachment' );
 my $book;
 ok($book = $attachments->first, 'got book data');
 
-is( $book->mimetype, 'application/pdf', 'book is a PDF');
+is( $book->contenttype, 'application/pdf', 'book is a PDF');
 
 is( $book->path, "storage:modern_perl_a4.pdf", 'got path');
 

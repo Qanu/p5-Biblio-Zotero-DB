@@ -56,7 +56,7 @@ cmp_deeply( $titles,
 );
 
 my $html_item_rs =  $schema->resultset('StoredItem')
-	->items_with_attachments_of_mimetypes('text/html');
+	->items_with_attachments_of_contenttypes('text/html');
 ok( $html_item_rs->count >= 1, 'has at least one item with text/html attachment' );
 my @html_item_titles = map { $_->fields->{title} } $html_item_rs->all;
 cmp_deeply( @html_item_titles, any( 'Example.org'),
