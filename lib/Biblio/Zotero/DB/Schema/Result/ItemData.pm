@@ -72,13 +72,13 @@ __PACKAGE__->set_primary_key("itemid", "fieldid");
 
 Type: belongs_to
 
-Related object: L<Biblio::Zotero::DB::Schema::Result::Field>
+Related object: L<Biblio::Zotero::DB::Schema::Result::FieldsCombined>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "fieldid",
-  "Biblio::Zotero::DB::Schema::Result::Field",
+  "Biblio::Zotero::DB::Schema::Result::FieldsCombined",
   { fieldid => "fieldid" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
@@ -95,7 +95,7 @@ __PACKAGE__->belongs_to(
   "itemid",
   "Biblio::Zotero::DB::Schema::Result::Item",
   { itemid => "itemid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 =head2 valueid
@@ -119,8 +119,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:roFvJq1zvhoDYyltiT55LQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZOrbSan30k8LINA6X+1tVw
 
 # NOTE: extended DBIC schema below
 

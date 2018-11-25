@@ -57,6 +57,21 @@ __PACKAGE__->set_primary_key("syncobjecttypeid");
 
 =head1 RELATIONS
 
+=head2 sync_caches
+
+Type: has_many
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::SyncCache>
+
+=cut
+
+__PACKAGE__->has_many(
+  "sync_caches",
+  "Biblio::Zotero::DB::Schema::Result::SyncCache",
+  { "foreign.syncobjecttypeid" => "self.syncobjecttypeid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 sync_delete_logs
 
 Type: has_many
@@ -72,9 +87,24 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 sync_queues
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XdxxGgZFy8Y3LjNPjrXAgw
+Type: has_many
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::SyncQueue>
+
+=cut
+
+__PACKAGE__->has_many(
+  "sync_queues",
+  "Biblio::Zotero::DB::Schema::Result::SyncQueue",
+  { "foreign.syncobjecttypeid" => "self.syncobjecttypeid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uhhWtN2Lfw59Jlv3QEBpQg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

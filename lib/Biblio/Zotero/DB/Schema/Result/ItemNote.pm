@@ -30,7 +30,7 @@ __PACKAGE__->table("itemNotes");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 sourceitemid
+=head2 parentitemid
 
   data_type: 'int'
   is_foreign_key: 1
@@ -56,7 +56,7 @@ __PACKAGE__->add_columns(
     is_foreign_key    => 1,
     is_nullable       => 0,
   },
-  "sourceitemid",
+  "parentitemid",
   { data_type => "int", is_foreign_key => 1, is_nullable => 1 },
   "note",
   { data_type => "text", is_nullable => 1 },
@@ -90,10 +90,10 @@ __PACKAGE__->belongs_to(
   "itemid",
   "Biblio::Zotero::DB::Schema::Result::Item",
   { itemid => "itemid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
-=head2 sourceitemid
+=head2 parentitemid
 
 Type: belongs_to
 
@@ -102,20 +102,20 @@ Related object: L<Biblio::Zotero::DB::Schema::Result::Item>
 =cut
 
 __PACKAGE__->belongs_to(
-  "sourceitemid",
+  "parentitemid",
   "Biblio::Zotero::DB::Schema::Result::Item",
-  { itemid => "sourceitemid" },
+  { itemid => "parentitemid" },
   {
     is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "CASCADE",
     on_update     => "NO ACTION",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Hl91IwOfCHsHECt8xtfwOw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yzcp24Rnm4uTuRC6ClfgVw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

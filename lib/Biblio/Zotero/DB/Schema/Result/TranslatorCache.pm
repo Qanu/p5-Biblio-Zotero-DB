@@ -23,17 +23,12 @@ __PACKAGE__->table("translatorCache");
 
 =head1 ACCESSORS
 
-=head2 leafname
+=head2 filename
 
   data_type: 'text'
   is_nullable: 0
 
-=head2 translatorjson
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 code
+=head2 metadatajson
 
   data_type: 'text'
   is_nullable: 1
@@ -46,11 +41,9 @@ __PACKAGE__->table("translatorCache");
 =cut
 
 __PACKAGE__->add_columns(
-  "leafname",
+  "filename",
   { data_type => "text", is_nullable => 0 },
-  "translatorjson",
-  { data_type => "text", is_nullable => 1 },
-  "code",
+  "metadatajson",
   { data_type => "text", is_nullable => 1 },
   "lastmodifiedtime",
   { data_type => "int", is_nullable => 1 },
@@ -60,17 +53,17 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</leafname>
+=item * L</filename>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("leafname");
+__PACKAGE__->set_primary_key("filename");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FBPDb1yatrWIk/IipJfb2A
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:G9GrO+V/mCG9vZhMR3/MyQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

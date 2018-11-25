@@ -84,6 +84,22 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("itemid", "creatorid", "creatortypeid", "orderindex");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<itemid_orderindex_unique>
+
+=over 4
+
+=item * L</itemid>
+
+=item * L</orderindex>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("itemid_orderindex_unique", ["itemid", "orderindex"]);
+
 =head1 RELATIONS
 
 =head2 creatorid
@@ -98,7 +114,7 @@ __PACKAGE__->belongs_to(
   "creatorid",
   "Biblio::Zotero::DB::Schema::Result::Creator",
   { creatorid => "creatorid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 =head2 creatortypeid
@@ -128,12 +144,12 @@ __PACKAGE__->belongs_to(
   "itemid",
   "Biblio::Zotero::DB::Schema::Result::Item",
   { itemid => "itemid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oeh4tr0CDfowSGh8S3skNg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/oCqexIcxHDzhJwyNz9JjQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -37,7 +37,7 @@ __PACKAGE__->table("savedSearchConditions");
 =head2 condition
 
   data_type: 'text'
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 operator
 
@@ -62,7 +62,7 @@ __PACKAGE__->add_columns(
   "searchconditionid",
   { data_type => "int", is_nullable => 0 },
   "condition",
-  { data_type => "text", is_nullable => 1 },
+  { data_type => "text", is_nullable => 0 },
   "operator",
   { data_type => "text", is_nullable => 1 },
   "value",
@@ -99,12 +99,12 @@ __PACKAGE__->belongs_to(
   "savedsearchid",
   "Biblio::Zotero::DB::Schema::Result::SavedSearch",
   { savedsearchid => "savedsearchid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JqpiVvq1q0JP97aVmLuMhQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p4Su/NB8KE+fOGRsGajmtQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -45,12 +45,7 @@ __PACKAGE__->table("groups");
   data_type: 'text'
   is_nullable: 0
 
-=head2 editable
-
-  data_type: 'int'
-  is_nullable: 0
-
-=head2 fileseditable
+=head2 version
 
   data_type: 'int'
   is_nullable: 0
@@ -66,9 +61,7 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 0 },
   "description",
   { data_type => "text", is_nullable => 0 },
-  "editable",
-  { data_type => "int", is_nullable => 0 },
-  "fileseditable",
+  "version",
   { data_type => "int", is_nullable => 0 },
 );
 
@@ -112,12 +105,12 @@ __PACKAGE__->belongs_to(
   "libraryid",
   "Biblio::Zotero::DB::Schema::Result::Library",
   { libraryid => "libraryid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rM5kHMX8OVtOSssn89CDlQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PUgyKorJN/UoPklc4IQNrg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

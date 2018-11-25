@@ -1,12 +1,12 @@
 use utf8;
-package Biblio::Zotero::DB::Schema::Result::SyncDeleteLog;
+package Biblio::Zotero::DB::Schema::Result::SyncCache;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Biblio::Zotero::DB::Schema::Result::SyncDeleteLog
+Biblio::Zotero::DB::Schema::Result::SyncCache
 
 =cut
 
@@ -15,19 +15,13 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-=head1 TABLE: C<syncDeleteLog>
+=head1 TABLE: C<syncCache>
 
 =cut
 
-__PACKAGE__->table("syncDeleteLog");
+__PACKAGE__->table("syncCache");
 
 =head1 ACCESSORS
-
-=head2 syncobjecttypeid
-
-  data_type: 'int'
-  is_foreign_key: 1
-  is_nullable: 0
 
 =head2 libraryid
 
@@ -40,49 +34,54 @@ __PACKAGE__->table("syncDeleteLog");
   data_type: 'text'
   is_nullable: 0
 
-=head2 datedeleted
+=head2 syncobjecttypeid
+
+  data_type: 'int'
+  is_foreign_key: 1
+  is_nullable: 0
+
+=head2 version
+
+  data_type: 'int'
+  is_nullable: 0
+
+=head2 data
 
   data_type: 'text'
-  default_value: current_timestamp
-  is_nullable: 0
+  is_nullable: 1
 
 =cut
 
 __PACKAGE__->add_columns(
-  "syncobjecttypeid",
-  { data_type => "int", is_foreign_key => 1, is_nullable => 0 },
   "libraryid",
   { data_type => "int", is_foreign_key => 1, is_nullable => 0 },
   "key",
   { data_type => "text", is_nullable => 0 },
-  "datedeleted",
-  {
-    data_type     => "text",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
+  "syncobjecttypeid",
+  { data_type => "int", is_foreign_key => 1, is_nullable => 0 },
+  "version",
+  { data_type => "int", is_nullable => 0 },
+  "data",
+  { data_type => "text", is_nullable => 1 },
 );
 
-=head1 UNIQUE CONSTRAINTS
-
-=head2 C<syncobjecttypeid_libraryid_key_unique>
+=head1 PRIMARY KEY
 
 =over 4
-
-=item * L</syncobjecttypeid>
 
 =item * L</libraryid>
 
 =item * L</key>
 
+=item * L</syncobjecttypeid>
+
+=item * L</version>
+
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint(
-  "syncobjecttypeid_libraryid_key_unique",
-  ["syncobjecttypeid", "libraryid", "key"],
-);
+__PACKAGE__->set_primary_key("libraryid", "key", "syncobjecttypeid", "version");
 
 =head1 RELATIONS
 
@@ -117,8 +116,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AcZom/oZGy34+ovftFulkQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:41:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:F5ty1p9xRPCg+qwWQpZh1w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -34,18 +34,6 @@ __PACKAGE__->table("savedSearches");
   data_type: 'text'
   is_nullable: 0
 
-=head2 dateadded
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
-=head2 datemodified
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
 =head2 clientdatemodified
 
   data_type: 'timestamp'
@@ -55,11 +43,24 @@ __PACKAGE__->table("savedSearches");
 =head2 libraryid
 
   data_type: 'int'
-  is_nullable: 1
+  is_foreign_key: 1
+  is_nullable: 0
 
 =head2 key
 
   data_type: 'text'
+  is_nullable: 0
+
+=head2 version
+
+  data_type: 'int'
+  default_value: 0
+  is_nullable: 0
+
+=head2 synced
+
+  data_type: 'int'
+  default_value: 0
   is_nullable: 0
 
 =cut
@@ -69,18 +70,6 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "savedsearchname",
   { data_type => "text", is_nullable => 0 },
-  "dateadded",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
-  "datemodified",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
   "clientdatemodified",
   {
     data_type     => "timestamp",
@@ -88,9 +77,13 @@ __PACKAGE__->add_columns(
     is_nullable   => 0,
   },
   "libraryid",
-  { data_type => "int", is_nullable => 1 },
+  { data_type => "int", is_foreign_key => 1, is_nullable => 0 },
   "key",
   { data_type => "text", is_nullable => 0 },
+  "version",
+  { data_type => "int", default_value => 0, is_nullable => 0 },
+  "synced",
+  { data_type => "int", default_value => 0, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -123,6 +116,21 @@ __PACKAGE__->add_unique_constraint("libraryid_key_unique", ["libraryid", "key"])
 
 =head1 RELATIONS
 
+=head2 libraryid
+
+Type: belongs_to
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::Library>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "libraryid",
+  "Biblio::Zotero::DB::Schema::Result::Library",
+  { libraryid => "libraryid" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
+);
+
 =head2 saved_search_conditions
 
 Type: has_many
@@ -139,8 +147,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tBpgaZNfOkTpszoJb8m94Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4h7W396KYbdschcEd+1Icw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

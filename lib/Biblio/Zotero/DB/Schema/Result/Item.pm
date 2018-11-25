@@ -56,11 +56,23 @@ __PACKAGE__->table("items");
 
   data_type: 'int'
   is_foreign_key: 1
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 key
 
   data_type: 'text'
+  is_nullable: 0
+
+=head2 version
+
+  data_type: 'int'
+  default_value: 0
+  is_nullable: 0
+
+=head2 synced
+
+  data_type: 'int'
+  default_value: 0
   is_nullable: 0
 
 =cut
@@ -89,9 +101,13 @@ __PACKAGE__->add_columns(
     is_nullable   => 0,
   },
   "libraryid",
-  { data_type => "int", is_foreign_key => 1, is_nullable => 1 },
+  { data_type => "int", is_foreign_key => 1, is_nullable => 0 },
   "key",
   { data_type => "text", is_nullable => 0 },
+  "version",
+  { data_type => "int", default_value => 0, is_nullable => 0 },
+  "synced",
+  { data_type => "int", default_value => 0, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -139,6 +155,36 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 deleted_item
+
+Type: might_have
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::DeletedItem>
+
+=cut
+
+__PACKAGE__->might_have(
+  "deleted_item",
+  "Biblio::Zotero::DB::Schema::Result::DeletedItem",
+  { "foreign.itemid" => "self.itemid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 feed_item
+
+Type: might_have
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::FeedItem>
+
+=cut
+
+__PACKAGE__->might_have(
+  "feed_item",
+  "Biblio::Zotero::DB::Schema::Result::FeedItem",
+  { "foreign.itemid" => "self.itemid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 fulltext_item
 
 Type: might_have
@@ -169,6 +215,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 group_item
+
+Type: might_have
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::GroupItem>
+
+=cut
+
+__PACKAGE__->might_have(
+  "group_item",
+  "Biblio::Zotero::DB::Schema::Result::GroupItem",
+  { "foreign.itemid" => "self.itemid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 item_attachments_itemid
 
 Type: might_have
@@ -184,7 +245,7 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 item_attachments_sourceitemids
+=head2 item_attachments_parentitemids
 
 Type: has_many
 
@@ -193,9 +254,9 @@ Related object: L<Biblio::Zotero::DB::Schema::Result::ItemAttachment>
 =cut
 
 __PACKAGE__->has_many(
-  "item_attachments_sourceitemids",
+  "item_attachments_parentitemids",
   "Biblio::Zotero::DB::Schema::Result::ItemAttachment",
-  { "foreign.sourceitemid" => "self.itemid" },
+  { "foreign.parentitemid" => "self.itemid" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -244,7 +305,7 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 item_notes_sourceitemids
+=head2 item_notes_parentitemids
 
 Type: has_many
 
@@ -253,39 +314,24 @@ Related object: L<Biblio::Zotero::DB::Schema::Result::ItemNote>
 =cut
 
 __PACKAGE__->has_many(
-  "item_notes_sourceitemids",
+  "item_notes_parentitemids",
   "Biblio::Zotero::DB::Schema::Result::ItemNote",
-  { "foreign.sourceitemid" => "self.itemid" },
+  { "foreign.parentitemid" => "self.itemid" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 item_see_also_itemids
+=head2 item_relations
 
 Type: has_many
 
-Related object: L<Biblio::Zotero::DB::Schema::Result::ItemSeeAlso>
+Related object: L<Biblio::Zotero::DB::Schema::Result::ItemRelation>
 
 =cut
 
 __PACKAGE__->has_many(
-  "item_see_also_itemids",
-  "Biblio::Zotero::DB::Schema::Result::ItemSeeAlso",
+  "item_relations",
+  "Biblio::Zotero::DB::Schema::Result::ItemRelation",
   { "foreign.itemid" => "self.itemid" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 item_see_also_linkeditemids
-
-Type: has_many
-
-Related object: L<Biblio::Zotero::DB::Schema::Result::ItemSeeAlso>
-
-=cut
-
-__PACKAGE__->has_many(
-  "item_see_also_linkeditemids",
-  "Biblio::Zotero::DB::Schema::Result::ItemSeeAlso",
-  { "foreign.linkeditemid" => "self.itemid" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -316,43 +362,8 @@ __PACKAGE__->belongs_to(
   "libraryid",
   "Biblio::Zotero::DB::Schema::Result::Library",
   { libraryid => "libraryid" },
-  {
-    is_deferrable => 0,
-    join_type     => "LEFT",
-    on_delete     => "NO ACTION",
-    on_update     => "NO ACTION",
-  },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
-
-=head2 itemids
-
-Type: many_to_many
-
-Composing rels: L</item_see_also_linkeditemids> -> itemid
-
-=cut
-
-__PACKAGE__->many_to_many("itemids", "item_see_also_linkeditemids", "itemid");
-
-=head2 linkeditemids
-
-Type: many_to_many
-
-Composing rels: L</item_see_also_linkeditemids> -> linkeditemid
-
-=cut
-
-__PACKAGE__->many_to_many("linkeditemids", "item_see_also_linkeditemids", "linkeditemid");
-
-=head2 tagids
-
-Type: many_to_many
-
-Composing rels: L</item_tags> -> tagid
-
-=cut
-
-__PACKAGE__->many_to_many("tagids", "item_tags", "tagid");
 
 =head2 wordids
 
@@ -365,8 +376,8 @@ Composing rels: L</fulltext_item_words> -> wordid
 __PACKAGE__->many_to_many("wordids", "fulltext_item_words", "wordid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OcWFl3GnRhMxSUTwxOnJCw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:g9H+OjwbGooBw/oa0E7Xpw
 
 # NOTE: extended DBIC schema below
 

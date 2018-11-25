@@ -145,21 +145,6 @@ __PACKAGE__->belongs_to(
   },
 );
 
-=head2 item_datas
-
-Type: has_many
-
-Related object: L<Biblio::Zotero::DB::Schema::Result::ItemData>
-
-=cut
-
-__PACKAGE__->has_many(
-  "item_datas",
-  "Biblio::Zotero::DB::Schema::Result::ItemData",
-  { "foreign.fieldid" => "self.fieldid" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 item_type_fields
 
 Type: has_many
@@ -176,8 +161,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aBezepkeZs0zrI3xTKTpoA
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p+WuGNUDcfQw2qoyNMOeSw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

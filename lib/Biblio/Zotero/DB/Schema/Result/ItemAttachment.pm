@@ -30,7 +30,7 @@ __PACKAGE__->table("itemAttachments");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 sourceitemid
+=head2 parentitemid
 
   data_type: 'int'
   is_foreign_key: 1
@@ -41,7 +41,7 @@ __PACKAGE__->table("itemAttachments");
   data_type: 'int'
   is_nullable: 1
 
-=head2 mimetype
+=head2 contenttype
 
   data_type: 'text'
   is_nullable: 1
@@ -49,14 +49,10 @@ __PACKAGE__->table("itemAttachments");
 =head2 charsetid
 
   data_type: 'int'
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 path
-
-  data_type: 'text'
-  is_nullable: 1
-
-=head2 originalpath
 
   data_type: 'text'
   is_nullable: 1
@@ -87,17 +83,15 @@ __PACKAGE__->add_columns(
     is_foreign_key    => 1,
     is_nullable       => 0,
   },
-  "sourceitemid",
+  "parentitemid",
   { data_type => "int", is_foreign_key => 1, is_nullable => 1 },
   "linkmode",
   { data_type => "int", is_nullable => 1 },
-  "mimetype",
+  "contenttype",
   { data_type => "text", is_nullable => 1 },
   "charsetid",
-  { data_type => "int", is_nullable => 1 },
+  { data_type => "int", is_foreign_key => 1, is_nullable => 1 },
   "path",
-  { data_type => "text", is_nullable => 1 },
-  "originalpath",
   { data_type => "text", is_nullable => 1 },
   "syncstate",
   { data_type => "int", default_value => 0, is_nullable => 1 },
@@ -136,6 +130,26 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 charsetid
+
+Type: belongs_to
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::Charset>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "charsetid",
+  "Biblio::Zotero::DB::Schema::Result::Charset",
+  { charsetid => "charsetid" },
+  {
+    is_deferrable => 0,
+    join_type     => "LEFT",
+    on_delete     => "SET NULL",
+    on_update     => "NO ACTION",
+  },
+);
+
 =head2 highlights
 
 Type: has_many
@@ -163,10 +177,10 @@ __PACKAGE__->belongs_to(
   "itemid",
   "Biblio::Zotero::DB::Schema::Result::Item",
   { itemid => "itemid" },
-  { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
-=head2 sourceitemid
+=head2 parentitemid
 
 Type: belongs_to
 
@@ -175,20 +189,20 @@ Related object: L<Biblio::Zotero::DB::Schema::Result::Item>
 =cut
 
 __PACKAGE__->belongs_to(
-  "sourceitemid",
+  "parentitemid",
   "Biblio::Zotero::DB::Schema::Result::Item",
-  { itemid => "sourceitemid" },
+  { itemid => "parentitemid" },
   {
     is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "CASCADE",
     on_update     => "NO ACTION",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:u4JJM71EtePId8XMpq4WOQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hN9AWW/wa/ktSUoRoc7K1Q
 
 # NOTE: extended DBIC schema below
 

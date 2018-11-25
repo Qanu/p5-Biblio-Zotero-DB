@@ -41,18 +41,6 @@ __PACKAGE__->table("collections");
   is_foreign_key: 1
   is_nullable: 1
 
-=head2 dateadded
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
-=head2 datemodified
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
 =head2 clientdatemodified
 
   data_type: 'timestamp'
@@ -62,11 +50,24 @@ __PACKAGE__->table("collections");
 =head2 libraryid
 
   data_type: 'int'
-  is_nullable: 1
+  is_foreign_key: 1
+  is_nullable: 0
 
 =head2 key
 
   data_type: 'text'
+  is_nullable: 0
+
+=head2 version
+
+  data_type: 'int'
+  default_value: 0
+  is_nullable: 0
+
+=head2 synced
+
+  data_type: 'int'
+  default_value: 0
   is_nullable: 0
 
 =cut
@@ -83,18 +84,6 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable    => 1,
   },
-  "dateadded",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
-  "datemodified",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
   "clientdatemodified",
   {
     data_type     => "timestamp",
@@ -102,9 +91,13 @@ __PACKAGE__->add_columns(
     is_nullable   => 0,
   },
   "libraryid",
-  { data_type => "int", is_nullable => 1 },
+  { data_type => "int", is_foreign_key => 1, is_nullable => 0 },
   "key",
   { data_type => "text", is_nullable => 0 },
+  "version",
+  { data_type => "int", default_value => 0, is_nullable => 0 },
+  "synced",
+  { data_type => "int", default_value => 0, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -152,6 +145,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 collection_relations
+
+Type: has_many
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::CollectionRelation>
+
+=cut
+
+__PACKAGE__->has_many(
+  "collection_relations",
+  "Biblio::Zotero::DB::Schema::Result::CollectionRelation",
+  { "foreign.collectionid" => "self.collectionid" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 collections
 
 Type: has_many
@@ -165,6 +173,21 @@ __PACKAGE__->has_many(
   "Biblio::Zotero::DB::Schema::Result::Collection",
   { "foreign.parentcollectionid" => "self.collectionid" },
   { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 libraryid
+
+Type: belongs_to
+
+Related object: L<Biblio::Zotero::DB::Schema::Result::Library>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "libraryid",
+  "Biblio::Zotero::DB::Schema::Result::Library",
+  { libraryid => "libraryid" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "NO ACTION" },
 );
 
 =head2 parentcollectionid
@@ -182,14 +205,14 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 0,
     join_type     => "LEFT",
-    on_delete     => "NO ACTION",
+    on_delete     => "CASCADE",
     on_update     => "NO ACTION",
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yKzZ7kQPHQsrMv2FSL8wrQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YkcXxGn8XAI3ajHCewUAig
 
 # NOTE: extended DBIC schema below
 

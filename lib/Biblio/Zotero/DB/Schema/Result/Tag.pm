@@ -34,69 +34,12 @@ __PACKAGE__->table("tags");
   data_type: 'text'
   is_nullable: 0
 
-=head2 type
-
-  data_type: 'int'
-  is_nullable: 0
-
-=head2 dateadded
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
-=head2 datemodified
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
-=head2 clientdatemodified
-
-  data_type: 'timestamp'
-  default_value: current_timestamp
-  is_nullable: 0
-
-=head2 libraryid
-
-  data_type: 'int'
-  is_nullable: 1
-
-=head2 key
-
-  data_type: 'text'
-  is_nullable: 0
-
 =cut
 
 __PACKAGE__->add_columns(
   "tagid",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "name",
-  { data_type => "text", is_nullable => 0 },
-  "type",
-  { data_type => "int", is_nullable => 0 },
-  "dateadded",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
-  "datemodified",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
-  "clientdatemodified",
-  {
-    data_type     => "timestamp",
-    default_value => \"current_timestamp",
-    is_nullable   => 0,
-  },
-  "libraryid",
-  { data_type => "int", is_nullable => 1 },
-  "key",
   { data_type => "text", is_nullable => 0 },
 );
 
@@ -114,35 +57,17 @@ __PACKAGE__->set_primary_key("tagid");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<libraryid_key_unique>
+=head2 C<name_unique>
 
 =over 4
-
-=item * L</libraryid>
-
-=item * L</key>
-
-=back
-
-=cut
-
-__PACKAGE__->add_unique_constraint("libraryid_key_unique", ["libraryid", "key"]);
-
-=head2 C<libraryid_name_type_unique>
-
-=over 4
-
-=item * L</libraryid>
 
 =item * L</name>
 
-=item * L</type>
-
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("libraryid_name_type_unique", ["libraryid", "name", "type"]);
+__PACKAGE__->add_unique_constraint("name_unique", ["name"]);
 
 =head1 RELATIONS
 
@@ -161,19 +86,9 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 itemids
 
-Type: many_to_many
-
-Composing rels: L</item_tags> -> itemid
-
-=cut
-
-__PACKAGE__->many_to_many("itemids", "item_tags", "itemid");
-
-
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-07-02 23:02:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KZ6mzhv66OnDC6I6Qr/EwQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-11-25 12:44:15
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TVl6L9ZAnwQZBoi7FSTgDw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
