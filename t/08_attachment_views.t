@@ -26,9 +26,9 @@ for my $match (keys %$data) {
 		} )->first;
 	my $item_data = $data->{$match};
 	subtest "Testing @{[$item->fields->{title}]}" => sub {
-		is( $item->item_attachments_sourceitemids->count       , $item_data->[0] );
-		is( $item->stored_item_attachments_sourceitemids->count, $item_data->[1] );
-		is( $item->trash_item_attachments_sourceitemids->count , $item_data->[2] );
+		is( $item->item_attachments_parentitemids->count       , $item_data->[0] );
+		is( $item->stored_item_attachments_parentitemids->count, $item_data->[1] );
+		is( $item->trash_item_attachments_parentitemids->count , $item_data->[2] );
 	};
 }
 

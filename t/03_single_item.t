@@ -33,7 +33,7 @@ ok( $first_row = $title_rs->first, 'got first row');
 
 my $attachments;
 
-ok($attachments = $first_row->item_attachments_sourceitemids, 'getting attachments');
+ok($attachments = $first_row->item_attachments_parentitemids, 'getting attachments');
 
 is($attachments->count, 1, 'has 1 attachment' );
 

@@ -17,7 +17,7 @@ is($schema->zotero_storage_directory, $storage_dir, 'Zotero storage attribute ex
 my $attachments;
 ok( $attachments = $schema->resultset('ItemAttachment')->search(
 	{
-		sourceitemid => 4,
+		parentitemid => 4,
 	}
 ), 'got attachments');
 

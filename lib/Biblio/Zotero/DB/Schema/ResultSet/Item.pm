@@ -93,7 +93,7 @@ sub _attachment_subquery {
 			$search_query,
 			{ '+columns' =>
 				{ outputitemid =>
-					\do { "IFNULL(me.sourceitemid, me.itemid)" } },
+					\do { "IFNULL(me.parentitemid, me.itemid)" } },
 			}
 		)->get_column('outputitemid')->as_query;
 }
@@ -123,19 +123,19 @@ sub _trash_items {
 	# or if it has an attachment that is in deletedItems
 	my $deletedAttachment = $schema->resultset('ItemAttachment')
 		->search( { 'itemid' => { -in => $deleted } })
-		->get_column('sourceitemid')->as_query;
+		->get_column('parentitemid')->as_query;
 
 	# or if it has an attachment that is in deletedItems
 	my $deletedNote = $schema->resultset('ItemNote')
 		->search({ 'itemid' => { -in => $deleted } })
-		->get_column('sourceitemid')->as_query;
+		->get_column('parentitemid')->as_query;
 
 	my $attached = $schema->resultset('ItemAttachment')
-		->search( { 'sourceitemid' => { '!=' => undef } })
+		->search( { 'parentitemid' => { '!=' => undef } })
 		->get_column('itemid')->as_query;
 
 	my $noted = $schema->resultset('ItemNote')
-		->search( { 'sourceitemid' => { '!=' => undef } })
+		->search( { 'parentitemid' => { '!=' => undef } })
 		->get_column('itemid')->as_query;
 
 	$schema->resultset('Item')->search(

@@ -17,7 +17,7 @@ __PACKAGE__->result_source_instance->view_definition(
 		WHERE (
         itemid IN ( SELECT me.itemid FROM deletedItems me )
         OR
-        sourceitemid IN ( SELECT me.itemid FROM deletedItems me )
+        parentitemid IN ( SELECT me.itemid FROM deletedItems me )
 		)
 	]
 );
@@ -30,7 +30,7 @@ __PACKAGE__->result_source_instance->view_definition(
 # 	->resultset('ItemAttachment')
 # 	->search(
 # 		{ -or => [ { itemid => { -in => $deleted } },
-# 				{ sourceitemid => { -in => $deleted } } ]
+# 				{ parentitemid => { -in => $deleted } } ]
 # 		}
 # 	)->as_query
 # ####

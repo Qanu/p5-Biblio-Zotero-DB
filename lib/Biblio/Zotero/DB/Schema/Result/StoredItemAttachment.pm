@@ -18,9 +18,9 @@ __PACKAGE__->result_source_instance->view_definition(
 			itemid NOT IN ( SELECT me.itemid FROM deletedItems me )
 			AND
 			(
-				sourceitemid IS NULL
+				parentitemid IS NULL
 				OR
-				sourceitemid NOT IN ( SELECT me.itemid FROM deletedItems me )
+				parentitemid NOT IN ( SELECT me.itemid FROM deletedItems me )
 			)
 		)
 	]
@@ -34,12 +34,12 @@ __PACKAGE__->result_source_instance->view_definition(
 # 	->resultset('ItemAttachment')
 # 	->search(
 # 		{ -and => [ { itemid => { -not_in => $deleted } },
-# 			{ -or => [ { sourceitemid => undef },
-# 				{ sourceitemid => { -not_in => $deleted } }] }
+# 			{ -or => [ { parentitemid => undef },
+# 				{ parentitemid => { -not_in => $deleted } }] }
 # 		] }
 # 	)->as_query
 # ####
-# the clause checking the sourceitemid is for when only the source item is
+# the clause checking the parentitemid is for when only the source item is
 # marked as deleted, but the attachment is not
 
 1;
