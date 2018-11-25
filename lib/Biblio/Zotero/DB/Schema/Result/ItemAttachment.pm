@@ -210,6 +210,7 @@ use URI;
 use URI::Escape;
 use Path::Class;
 use Path::Class::URI;
+use Encode qw(encode_utf8);
 
 # TODO: document
 sub uri {
@@ -229,7 +230,7 @@ sub uri {
 
 		my $subdir_uri = $subdir->uri->as_string;
 
-		URI->new_abs( uri_escape( $self->path =~ s/^storage://r ),
+		URI->new_abs( uri_escape( encode_utf8($self->path =~ s/^storage://r) ),
 				# escaping URI because it may not be actually escaped properly in the DB
 			$subdir_uri
 		);
