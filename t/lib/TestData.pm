@@ -1,9 +1,11 @@
 package TestData;
-use Exporter 'import';
-@EXPORT    = qw(get_test_db_path get_db);   # afunc is a function
 
 use strict;
 use warnings;
+
+use Exporter 'import';
+@EXPORT    = qw(get_test_db_path get_db);   # afunc is a function
+
 use Path::Class;
 
 sub get_test_db_path {
